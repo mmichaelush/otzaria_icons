@@ -1,0 +1,35 @@
+name: Icon request
+description: Propose a missing icon for a concrete Otzaria use case.
+title: "[Icon] "
+labels: ["icon-request"]
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Otzaria use case
+      description: Where will the icon appear and what action or concept does it represent?
+    validations:
+      required: true
+  - type: input
+    id: suggested-name
+    attributes:
+      label: Suggested Fluent-style name
+      placeholder: book_example_24_regular
+  - type: checkboxes
+    id: variants
+    attributes:
+      label: Needed variants
+      options:
+        - label: Regular
+        - label: Filled
+  - type: textarea
+    id: upstream
+    attributes:
+      label: Fluent catalog check
+      description: Note any official Fluent equivalent or related icon you found.
+  - type: textarea
+    id: references
+    attributes:
+      label: References or sketches
+      description: Attach original sketches only, or identify third-party licensing clearly.
+

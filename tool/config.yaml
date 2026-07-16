@@ -1,0 +1,15 @@
+package_name: otzaria_icons
+class_name: OtzariaIcons
+font_family: OtzariaIcons
+font_file: lib/fonts/otzaria_icons.otf
+source_directory: assets_src/svg
+manifest_file: icon_manifest.yaml
+dart_output: lib/src/generated/otzaria_icons_data.dart
+gallery_output: example/lib/generated/icon_catalog.dart
+test_expectations_output: test/generated/icon_expectations.dart
+notices_output: THIRD_PARTY_NOTICES.md
+canvas_width: 24
+canvas_height: 24
+codepoint_start: 0xe000
+normalize: false
+ignore_shapes: false

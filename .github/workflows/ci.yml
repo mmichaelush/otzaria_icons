@@ -1,0 +1,137 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: Package / Flutter ${{ matrix.flutter }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        flutter: ['3.16.9', '3.44.0']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ matrix.flutter }}
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: dart run tool/validate.dart
+      - run: flutter analyze
+      - run: flutter test
+
+  generated:
+    name: Generated files are current
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: dart run tool/generate.dart --check
+
+  example:
+    name: Example gallery
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: stable
+          cache: true
+      - working-directory: example
+        run: flutter pub get
+      - working-directory: example
+        run: flutter analyze
+      - working-directory: example
+        run: flutter test
+
+  tree-shaking:
+    name: Minimal app / Web release
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: stable
+          cache: true
+      - working-directory: test_apps/minimal
+        run: flutter pub get
+      - working-directory: test_apps/minimal
+        run: flutter analyze
+      - working-directory: test_apps/minimal
+        run: flutter test
+      - working-directory: test_apps/minimal
+        run: flutter build web --release
+      - run: >-
+          dart run tool/check_font_subset.dart
+          lib/fonts/otzaria_icons.otf
+          test_apps/minimal/build/web/assets/packages/otzaria_icons/lib/fonts/otzaria_icons.otf
+
+  android:
+    name: Android release
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: stable
+          cache: true
+      - working-directory: test_apps/minimal
+        run: flutter pub get
+      - working-directory: test_apps/minimal
+        run: flutter build apk --release
+      - working-directory: example
+        run: flutter pub get
+      - working-directory: example
+        run: flutter build apk --release
+
+  windows:
+    name: Windows release
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter test test/icon_gallery_golden_test.dart
+      - working-directory: test_apps/minimal
+        run: flutter pub get
+      - working-directory: test_apps/minimal
+        run: flutter build windows --release
+      - working-directory: example
+        run: flutter pub get
+      - working-directory: example
+        run: flutter build windows --release
