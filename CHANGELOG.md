@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.3 - 2026-07-17
+
+- Increased the optical size of the restored `book_open_lines`,
+  `book_open_lines_search`, and `search_full` designs by 12% around the canvas
+  center, preserving their proportions and native 24x24 geometry.
+- Replaced the overly dense `book_open_lines_24_filled` geometry with the
+  original readable regular outline so it remains recognizable at 16-24 px.
+- Added a reusable native-path scaling tool and updated the multi-size visual
+  golden.
+
 ## 0.1.2 - 2026-07-16
 
 - Restored the original visual designs of `book_open_lines`,
