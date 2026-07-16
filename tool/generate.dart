@@ -136,6 +136,9 @@ Future<void> main(List<String> arguments) async {
     ..writeAsStringSync(_generateTestExpectations(manifest.icons));
   File(config.noticesOutput)
       .writeAsStringSync(_generateNotices(manifest.icons));
+  File(config.catalogOutput)
+    ..parent.createSync(recursive: true)
+    ..writeAsStringSync(_generateSvgCatalog(manifest.icons));
 
   final formatResult = await Process.run(
     Platform.resolvedExecutable,
@@ -209,6 +212,7 @@ Future<void> _checkGeneratedFiles(IconConfig config) async {
       'pubspec.yaml',
       config.manifestFile,
       config.noticesOutput,
+      config.catalogOutput,
     ]) {
       final source = FileSystemEntity.typeSync(path);
       final destination = p.join(temp.path, path);
@@ -236,6 +240,7 @@ Future<void> _checkGeneratedFiles(IconConfig config) async {
       config.galleryOutput,
       config.testExpectationsOutput,
       config.noticesOutput,
+      config.catalogOutput,
       ...Directory(config.sourceDirectory)
           .listSync()
           .whereType<File>()
@@ -362,6 +367,7 @@ IconConfig _readConfig(File file) {
     galleryOutput: requiredValue<String>('gallery_output'),
     testExpectationsOutput: requiredValue<String>('test_expectations_output'),
     noticesOutput: requiredValue<String>('notices_output'),
+    catalogOutput: requiredValue<String>('catalog_output'),
     canvasWidth: width,
     canvasHeight: height,
     codepointStart: start,
@@ -479,6 +485,57 @@ String _generateNotices(List<ManifestIcon> icons) {
   return buffer.toString();
 }
 
+String _generateSvgCatalog(List<ManifestIcon> icons) {
+  const cardWidth = 480;
+  const cardHeight = 112;
+  const columns = 2;
+  final rows = (icons.length / columns).ceil();
+  const width = cardWidth * columns;
+  final height = 72 + rows * cardHeight + 24;
+  final buffer = StringBuffer()
+    ..writeln(
+      '<svg xmlns="http://www.w3.org/2000/svg" '
+      'width="$width" height="$height" viewBox="0 0 $width $height">',
+    )
+    ..writeln('<rect width="100%" height="100%" fill="#ffffff"/>')
+    ..writeln(
+      '<text x="24" y="42" font-family="Arial, sans-serif" font-size="24" '
+      'font-weight="600" fill="#202020">Otzaria Icons</text>',
+    );
+  for (var index = 0; index < icons.length; index++) {
+    final icon = icons[index];
+    final x = (index % columns) * cardWidth + 16;
+    final y = (index ~/ columns) * cardHeight + 64;
+    final document = File(icon.source).readAsStringSync();
+    final body = document.substring(
+      document.indexOf('>') + 1,
+      document.lastIndexOf('</svg>'),
+    );
+    buffer
+      ..writeln(
+        '<rect x="$x" y="$y" width="${cardWidth - 16}" '
+        'height="${cardHeight - 8}" rx="12" fill="#f7f7f7" '
+        'stroke="#dedede"/>',
+      )
+      ..writeln(
+        '<svg x="${x + 20}" y="${y + 20}" width="64" height="64" '
+        'viewBox="0 0 24 24" color="#202020">$body</svg>',
+      )
+      ..writeln(
+        '<text x="${x + 104}" y="${y + 49}" '
+        'font-family="Consolas, monospace" font-size="15" '
+        'fill="#202020">${icon.name}</text>',
+      )
+      ..writeln(
+        '<text x="${x + 104}" y="${y + 72}" '
+        'font-family="Arial, sans-serif" font-size="13" '
+        'fill="#666666">U+${icon.codepoint.toRadixString(16).toUpperCase()}'
+        ' · ${icon.variant} · 24 px</text>',
+      );
+  }
+  return '${buffer.toString()}</svg>\n';
+}
+
 String _serializeManifest(IconManifest manifest) {
   final buffer = StringBuffer()
     ..writeln('schema_version: ${manifest.schemaVersion}')
@@ -589,6 +646,7 @@ final class IconConfig {
     required this.galleryOutput,
     required this.testExpectationsOutput,
     required this.noticesOutput,
+    required this.catalogOutput,
     required this.canvasWidth,
     required this.canvasHeight,
     required this.codepointStart,
@@ -606,6 +664,7 @@ final class IconConfig {
   final String galleryOutput;
   final String testExpectationsOutput;
   final String noticesOutput;
+  final String catalogOutput;
   final int canvasWidth;
   final int canvasHeight;
   final int codepointStart;

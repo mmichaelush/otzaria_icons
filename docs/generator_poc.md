@@ -26,8 +26,8 @@ The package source and runtime result agree: version 4.1.0 assigns
 `0xE000 + index`. The insertion order of the supplied `Map` is preserved.
 
 Version 4.1.0 also interprets one-argument `scale(s)` as `scale(s, 0)`.
-Canvas normalization therefore always emits the equivalent explicit
-`scale(s s)` form.
+Source transforms are therefore prohibited; paths must be flattened into native
+24×24 coordinates before generation.
 
 Decision:
 

@@ -29,8 +29,8 @@
   lockstep.
 - Added safe automatic wrapper-group SVG sanitation.
 - Imported five regular/filled pairs (ten icons) under GPL-3.0-only.
-- Added proportional large-canvas normalization and a workaround for
-  `icon_font_generator` 4.1.0's one-argument scale bug.
+- Replaced transform-based large-canvas normalization with a strict native
+  24×24 geometry requirement after small-size rendering validation.
 - Added a Windows visual baseline covering every glyph.
 - Installed an isolated Android API 36 toolchain and passed local release builds
   for the minimal app and full gallery.

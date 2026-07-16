@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.1 - 2026-07-16
+
+- Rebuilt `book_open_lines`, `book_open_lines_search`, and `search_full`
+  regular/filled glyphs with native 24×24 geometry for correct 16–24 px
+  rendering.
+- Replaced the 80 px-only golden with coverage at 16, 20, 24, 32, and 48 px.
+- Reject SVG transforms and non-native canvases to prevent small-size glyph
+  regressions.
+- Added a generated visual icon catalog and links to Otzaria and Microsoft
+  Fluent UI System Icons.
+
 ## 0.1.0 - 2026-07-16
 
 - Initial package structure and SVG validation pipeline.

@@ -47,7 +47,6 @@ System Icons.
 ## Determinism
 
 `dart run tool/generate.dart --check` repeats the pipeline in an isolated
-temporary copy and compares source normalization plus every generated artifact.
+temporary copy and compares validated SVG sources plus every generated artifact.
 CI uses this read-only mode. A clean check proves contributors committed the
 output corresponding to current SVG, manifest, config, and generator code.
-

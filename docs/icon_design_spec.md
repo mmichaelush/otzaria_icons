@@ -3,8 +3,8 @@
 ## Canvas and optical bounds
 
 - Canvas: 24×24 with `viewBox="0 0 24 24"`.
-- Large source canvases are proportionally fitted into a centered 20×20 optical
-  area by `tool/normalize_canvas.dart`; review the gallery after normalization.
+- Export final path geometry directly in 24×24 coordinates, with a centered
+  20×20 optical area. Transform-based downscaling is not accepted.
 - Keep geometry within the visual safe area; use optical centering.
 - Geometry may exceed the nominal 2-unit margin only when required for optical
   balance and after visual review at small sizes.

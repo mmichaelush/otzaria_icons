@@ -16,7 +16,7 @@ dart run tool/generate.dart
 
 Generation performs this sequence:
 
-1. normalize supported canvases;
+1. verify native 24×24 canvas coordinates;
 2. safely sanitize SVG structure;
 3. validate SVG and existing manifest metadata;
 4. add new manifest records and allocate `max(codepoint) + 1`;
@@ -69,4 +69,3 @@ because it proves icon font tree-shaking.
 
 Existing codepoints are immutable. Never reorder, recycle, silently remove, or
 manually compact them.
-

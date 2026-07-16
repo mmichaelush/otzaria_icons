@@ -17,8 +17,8 @@ void main() {
         .load();
   });
 
-  testWidgets('visual gallery', (tester) async {
-    tester.view.physicalSize = const Size(1000, 700);
+  testWidgets('visual gallery at production sizes', (tester) async {
+    tester.view.physicalSize = const Size(800, 900);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -29,16 +29,30 @@ void main() {
           color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(24),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              runAlignment: WrapAlignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (final entry in generatedIconExpectations.entries)
                   SizedBox(
-                    width: 180,
-                    height: 110,
-                    child: Center(
-                      child: Icon(entry.value, size: 80, color: Colors.black),
+                    height: 84,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (final size in [16.0, 20.0, 24.0, 32.0, 48.0])
+                          Container(
+                            width: 140,
+                            height: 72,
+                            alignment: Alignment.center,
+                            color: size == 24
+                                ? const Color(0xFFF1F6FF)
+                                : const Color(0xFFF8F8F8),
+                            child: Icon(
+                              entry.value,
+                              size: size,
+                              color: Colors.black,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
               ],

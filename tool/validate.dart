@@ -69,6 +69,14 @@ void main(List<String> arguments) {
         errors.add('$fileName.svg: style/script elements are not allowed');
       }
       if (document.descendants.whereType<XmlElement>().any(
+            (element) => element.getAttribute('transform') != null,
+          )) {
+        errors.add(
+          '$fileName.svg: transforms are not allowed; flatten geometry into '
+          'final 24x24 path coordinates',
+        );
+      }
+      if (document.descendants.whereType<XmlElement>().any(
             (element) =>
                 element.name.local == 'line' ||
                 element.getAttribute('stroke') != null ||

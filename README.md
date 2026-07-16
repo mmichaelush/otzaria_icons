@@ -12,6 +12,19 @@ This package is independent of `fluentui_system_icons`. Applications may use
 both packages side by side. The current release is pre-1.0 and distributed from
 GitHub by immutable version tags.
 
+Related projects:
+
+- [Otzaria — Jewish library application](https://github.com/Otzaria/otzaria)
+- [Microsoft Fluent UI System Icons](https://github.com/microsoft/fluentui-system-icons)
+
+## Available icons
+
+The catalog below is also the Windows visual regression test. Every generated
+glyph is rendered at 16, 20, 24, 32, and 48 logical pixels so small-size defects
+cannot be hidden by a large preview.
+
+![Otzaria Icons catalog](docs/icon_catalog.svg)
+
 ## Requirements and compatibility
 
 | Compatibility tier | Version |

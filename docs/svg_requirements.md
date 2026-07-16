@@ -17,11 +17,15 @@ visual review.
 
 - Final `viewBox` must be exactly `0 0 24 24`.
 - Keep geometry visually centered with a typical 20×20 optical area.
-- Large source canvases may be proportionally normalized into that area by the
-  pipeline, but the normalized result still requires visual review.
+- Convert large source canvases into final 24×24 path coordinates in the vector
+  editor before adding them.
 - Avoid geometry touching the canvas edge unless the design explicitly demands
   it.
 - Multiple `<path>` elements are allowed.
+- Committed source paths must use the final 24×24 coordinate system. A
+  large-coordinate path wrapped in `<g transform="... scale(...)">` is rejected
+  even if it appears to fit the canvas, because font conversion and hinting can
+  produce poor small-size results.
 
 ## Paths
 
@@ -39,9 +43,9 @@ visual review.
 wrapper group when doing so cannot discard transforms, clipping, identifiers, or
 nested group behavior. It intentionally does not rewrite ambiguous geometry.
 
-`tool/normalize_canvas.dart` handles supported non-24 canvases and emits an
-explicit two-axis `scale(x y)` transform. This avoids a known
-`icon_font_generator` 4.1.0 issue with one-argument scale transforms.
+`tool/normalize_canvas.dart` is now a guard: it rejects non-24 canvases instead
+of creating scale transforms. This policy was adopted after real transformed
+glyphs rendered poorly at 16–24 px despite looking acceptable at 80 px.
 
 ## Validation levels
 
@@ -58,4 +62,3 @@ continues.
 Inspect regular and filled variants together at 16, 20, 24, 32, and 48 pixels,
 in light/dark and LTR/RTL modes. Confirm optical centering, recognizability,
 interior holes, consistent weight, spacing, and selected-state relationship.
-
