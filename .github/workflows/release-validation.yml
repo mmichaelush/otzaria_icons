@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install Linux desktop dependencies
         run: >-
           sudo apt-get update &&
@@ -41,7 +41,7 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.44.0'
@@ -55,4 +55,3 @@ jobs:
         run: flutter pub get
       - working-directory: example
         run: flutter build macos --release
-

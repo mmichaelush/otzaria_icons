@@ -2,8 +2,8 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
-    - example/build/**
-    - test_apps/minimal/build/**
+    - example/**
+    - test_apps/**
 
 linter:
   rules:
