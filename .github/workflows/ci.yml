@@ -15,24 +15,40 @@ concurrency:
 
 jobs:
   package:
-    name: Package / Flutter ${{ matrix.flutter }}
+    name: Package / Flutter 3.44.0
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        flutter: ['3.16.9', '3.44.0']
     steps:
       - uses: actions/checkout@v6
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ matrix.flutter }}
+          flutter-version: '3.44.0'
           channel: stable
           cache: true
       - run: flutter pub get
       - run: dart run tool/validate.dart
       - run: flutter analyze
       - run: flutter test
+
+  minimum:
+    name: Consumer / Flutter 3.16.9
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.9'
+          channel: stable
+          cache: true
+      # A consuming app ignores this package's newer generator-only dev
+      # dependencies, which is the compatibility boundary we need to test.
+      - working-directory: test_apps/minimal
+        run: flutter pub get
+      - working-directory: test_apps/minimal
+        run: flutter analyze
+      - working-directory: test_apps/minimal
+        run: flutter test
 
   generated:
     name: Generated files are current

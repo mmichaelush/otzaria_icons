@@ -20,10 +20,13 @@ GitHub by immutable version tags.
 | Minimum supported Flutter | 3.16.9 |
 | Current CI/tested Flutter | 3.44.0 |
 | Generator toolchain | `icon_font_generator` 4.1.0, exactly pinned |
+| Minimum generator Dart | 3.4.0 |
 | Otzaria's current Fluent dependency | `fluentui_system_icons` 1.1.273 |
 
 The package has no runtime dependency on Fluent icons. The generator and its
-supporting libraries are development-only dependencies.
+supporting libraries are development-only dependencies. Flutter 3.16.9 support
+is tested through a consuming application because the pinned generator itself
+requires Dart 3.4 or newer.
 
 ## Installation
 

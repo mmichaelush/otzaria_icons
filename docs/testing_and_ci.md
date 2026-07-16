@@ -45,7 +45,8 @@ that Flutter's output font is smaller than the complete package font.
 
 The main CI workflow runs:
 
-- package analysis/tests on minimum and current Flutter;
+- package analysis/tests on the current generator toolchain;
+- package consumption on minimum Flutter, without generator-only dependencies;
 - read-only generated-file drift validation;
 - example analysis/tests;
 - Web tree-shaking release build and numeric subset assertion;
@@ -62,4 +63,3 @@ Adding icons updates generated expectations and the complete gallery golden.
 Changing generator/config/font behavior also requires rerunning the
 tree-shaking proof. Intentional visual changes require reviewing and replacing
 the golden on Windows, then explaining the change in the pull request.
-
