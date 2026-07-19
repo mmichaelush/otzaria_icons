@@ -92,6 +92,12 @@ outlines, resolve masks, apply nested transforms, map the viewport to 24x24,
 and write direct filled paths. It rejects results that still contain raster
 images, text, masks, or filters.
 
+Stroke settings may be declared directly on each path or inherited from the
+root `<svg>` or a parent group. Do not move or delete inherited `stroke`,
+`stroke-width`, `stroke-linecap`, or `stroke-linejoin` attributes manually.
+The preparation tool preserves and expands them together, so rounded caps,
+joins, widths, transforms, and proportions remain unchanged.
+
 This is a preparation step, not part of CI and not a substitute for review.
 Compare the source and prepared artwork visually before committing. Keep the
 source under version control while running the command so an unintended result
@@ -104,6 +110,7 @@ can be reverted.
 | A 512x512 or other large `viewBox` | Font metrics and small-size rasterization become inconsistent | Export native 24x24 coordinates or run the preparation tool |
 | A transformed group around large paths | Stored geometry is not actually 24x24 | Apply the transform to every path |
 | `stroke`, `stroke-width`, or `<line>` | The font consumes filled contours | Convert strokes to paths while preserving caps and joins |
+| Stroke styling only on the root `<svg>` | Child paths inherit it even without a local `stroke` attribute | Preserve the root styling and run the preparation tool; never copy only the bare path data |
 | `<rect>`, `<circle>`, `<polygon>`, or `<polyline>` | These are not canonical committed sources | Convert every shape to a path |
 | `<text>` | Rendering depends on a local font and text engine | Convert text to outlines where its appearance is approved |
 | A mask, clipping path, or filter | OpenType glyphs do not retain SVG compositing | Resolve it to paths; use `evenodd` for intentional holes |

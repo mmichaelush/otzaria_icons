@@ -8,6 +8,8 @@
   aliases or backward-compatibility entries.
 - Added a generated, searchable Hebrew icon catalog for GitHub Pages with an
   adjustable preview size.
+- Corrected stroke expansion for 11 restored source icons and preserved
+  presentation attributes inherited from the root SVG element.
 
 ## 0.2.0 - 2026-07-19
 

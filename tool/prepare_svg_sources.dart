@@ -40,6 +40,7 @@ void main(List<String> arguments) {
 
     _runInkscape(inkscape, [
       preparedFile.absolute.path,
+      '--actions=select-all:all;object-stroke-to-path',
       '--export-type=pdf',
       '--export-text-to-path',
       '--export-filename=${pdfFile.absolute.path}',
@@ -106,6 +107,28 @@ String _prepareForInkscape(XmlDocument document, bool hasMask) {
       .replaceAll(
           'transform="scale(-1, 1)"', 'transform="translate(24 0) scale(-1 1)"')
       .replaceAll('fill="white"', 'fill="black"');
+  const inheritedNames = {
+    'color',
+    'fill',
+    'fill-opacity',
+    'fill-rule',
+    'stroke',
+    'stroke-width',
+    'stroke-linecap',
+    'stroke-linejoin',
+    'stroke-miterlimit',
+    'stroke-opacity',
+    'opacity',
+    'style',
+  };
+  final inherited = root.attributes
+      .where((attribute) => inheritedNames.contains(attribute.name.local))
+      .map(
+        (attribute) =>
+            '${attribute.name.local}="${attribute.value.replaceAll('&', '&amp;').replaceAll('"', '&quot;')}"',
+      )
+      .join(' ');
+  if (inherited.isNotEmpty) body = '<g $inherited>$body</g>';
   return '<svg xmlns="http://www.w3.org/2000/svg" width="$width" '
       'height="$height" viewBox="$viewBox">$body</svg>\n';
 }
