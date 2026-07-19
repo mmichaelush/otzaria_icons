@@ -150,3 +150,783 @@ icons:
     author: Otzaria contributors
     license: GPL-3.0-only
     upstream_commit: null
+  - id: icon-0011
+    name: book_24_filled
+    source: assets_src/svg/book_24_filled.svg
+    codepoint: 0xe00a
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0012
+    name: book_24_regular
+    source: assets_src/svg/book_24_regular.svg
+    codepoint: 0xe00b
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0013
+    name: book_download_24_filled
+    source: assets_src/svg/book_download_24_filled.svg
+    codepoint: 0xe00c
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0014
+    name: book_download_24_regular
+    source: assets_src/svg/book_download_24_regular.svg
+    codepoint: 0xe00d
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0015
+    name: book_empty_24_filled
+    source: assets_src/svg/book_empty_24_filled.svg
+    codepoint: 0xe00e
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0016
+    name: book_empty_24_regular
+    source: assets_src/svg/book_empty_24_regular.svg
+    codepoint: 0xe00f
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0017
+    name: book_hyperlink_24_filled
+    source: assets_src/svg/book_hyperlink_24_filled.svg
+    codepoint: 0xe010
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0018
+    name: book_hyperlink_24_regular
+    source: assets_src/svg/book_hyperlink_24_regular.svg
+    codepoint: 0xe011
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0019
+    name: book_link_24_filled
+    source: assets_src/svg/book_link_24_filled.svg
+    codepoint: 0xe012
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0020
+    name: book_link_24_regular
+    source: assets_src/svg/book_link_24_regular.svg
+    codepoint: 0xe013
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0021
+    name: book_open_large_24_filled
+    source: assets_src/svg/book_open_large_24_filled.svg
+    codepoint: 0xe014
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0022
+    name: book_open_large_24_regular
+    source: assets_src/svg/book_open_large_24_regular.svg
+    codepoint: 0xe015
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0023
+    name: book_open_large_lines_24_filled
+    source: assets_src/svg/book_open_large_lines_24_filled.svg
+    codepoint: 0xe016
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0024
+    name: book_open_large_lines_24_regular
+    source: assets_src/svg/book_open_large_lines_24_regular.svg
+    codepoint: 0xe017
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0025
+    name: book_open_large_search_24_filled
+    source: assets_src/svg/book_open_large_search_24_filled.svg
+    codepoint: 0xe018
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0026
+    name: book_open_large_search_24_regular
+    source: assets_src/svg/book_open_large_search_24_regular.svg
+    codepoint: 0xe019
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0027
+    name: book_open_medium_24_regular
+    source: assets_src/svg/book_open_medium_24_regular.svg
+    codepoint: 0xe01a
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0028
+    name: book_open_medium_line_24_regular
+    source: assets_src/svg/book_open_medium_line_24_regular.svg
+    codepoint: 0xe01b
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0029
+    name: book_open_medium_search_24_regular
+    source: assets_src/svg/book_open_medium_search_24_regular.svg
+    codepoint: 0xe01c
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0030
+    name: book_open_small_24_regular
+    source: assets_src/svg/book_open_small_24_regular.svg
+    codepoint: 0xe01d
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0031
+    name: book_open_small_line_24_regular
+    source: assets_src/svg/book_open_small_line_24_regular.svg
+    codepoint: 0xe01e
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0032
+    name: book_pdf_24_filled
+    source: assets_src/svg/book_pdf_24_filled.svg
+    codepoint: 0xe01f
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0033
+    name: book_pdf_24_regular
+    source: assets_src/svg/book_pdf_24_regular.svg
+    codepoint: 0xe020
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0034
+    name: book_search_24_filled
+    source: assets_src/svg/book_search_24_filled.svg
+    codepoint: 0xe021
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0035
+    name: book_search_24_regular
+    source: assets_src/svg/book_search_24_regular.svg
+    codepoint: 0xe022
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0036
+    name: book_upload_24_filled
+    source: assets_src/svg/book_upload_24_filled.svg
+    codepoint: 0xe023
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0037
+    name: book_upload_24_regular
+    source: assets_src/svg/book_upload_24_regular.svg
+    codepoint: 0xe024
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0038
+    name: book_word_24_filled
+    source: assets_src/svg/book_word_24_filled.svg
+    codepoint: 0xe025
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0039
+    name: book_word_24_regular
+    source: assets_src/svg/book_word_24_regular.svg
+    codepoint: 0xe026
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0040
+    name: book_zim_24_filled
+    source: assets_src/svg/book_zim_24_filled.svg
+    codepoint: 0xe027
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0041
+    name: book_zim_24_regular
+    source: assets_src/svg/book_zim_24_regular.svg
+    codepoint: 0xe028
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0042
+    name: booklet_empty_24_regular
+    source: assets_src/svg/booklet_empty_24_regular.svg
+    codepoint: 0xe029
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0043
+    name: books_stacked_high_24_regular
+    source: assets_src/svg/books_stacked_high_24_regular.svg
+    codepoint: 0xe02a
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0044
+    name: books_stacked_low_24_regular
+    source: assets_src/svg/books_stacked_low_24_regular.svg
+    codepoint: 0xe02b
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0045
+    name: bookshelf_24_filled
+    source: assets_src/svg/bookshelf_24_filled.svg
+    codepoint: 0xe02c
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0046
+    name: bookshelf_24_regular
+    source: assets_src/svg/bookshelf_24_regular.svg
+    codepoint: 0xe02d
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0047
+    name: dependent_library_24_regular
+    source: assets_src/svg/dependent_library_24_regular.svg
+    codepoint: 0xe02e
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0048
+    name: document_column_24_filled
+    source: assets_src/svg/document_column_24_filled.svg
+    codepoint: 0xe02f
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0049
+    name: document_column_24_regular
+    source: assets_src/svg/document_column_24_regular.svg
+    codepoint: 0xe030
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0050
+    name: document_word_24_filled
+    source: assets_src/svg/document_word_24_filled.svg
+    codepoint: 0xe031
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0051
+    name: document_word_24_regular
+    source: assets_src/svg/document_word_24_regular.svg
+    codepoint: 0xe032
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0052
+    name: hyperlink_24_regular
+    source: assets_src/svg/hyperlink_24_regular.svg
+    codepoint: 0xe033
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0053
+    name: link_24_regular
+    source: assets_src/svg/link_24_regular.svg
+    codepoint: 0xe034
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0054
+    name: otzaria_icon_24_regular
+    source: assets_src/svg/otzaria_icon_24_regular.svg
+    codepoint: 0xe035
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0055
+    name: otzaria_icon_empty_24_regular
+    source: assets_src/svg/otzaria_icon_empty_24_regular.svg
+    codepoint: 0xe036
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0056
+    name: otzaria_icon_line_24_regular
+    source: assets_src/svg/otzaria_icon_line_24_regular.svg
+    codepoint: 0xe037
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0057
+    name: search_24_filled
+    source: assets_src/svg/search_24_filled.svg
+    codepoint: 0xe038
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0058
+    name: search_24_regular
+    source: assets_src/svg/search_24_regular.svg
+    codepoint: 0xe039
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0059
+    name: search_in_the_book_24_regular
+    source: assets_src/svg/search_in_the_book_24_regular.svg
+    codepoint: 0xe03a
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0060
+    name: search_in_the_library_24_regular
+    source: assets_src/svg/search_in_the_library_24_regular.svg
+    codepoint: 0xe03b
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0061
+    name: search_not_found_24_filled
+    source: assets_src/svg/search_not_found_24_filled.svg
+    codepoint: 0xe03c
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0062
+    name: search_not_found_24_regular
+    source: assets_src/svg/search_not_found_24_regular.svg
+    codepoint: 0xe03d
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null

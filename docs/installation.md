@@ -9,7 +9,7 @@ to an immutable release tag:
 dependencies:
   otzaria_icons:
     git:
-      url: https://github.com/mmichaelush/otzaria_icons
+      url: https://github.com/Otzaria/otzaria_icons
       ref: v0.1.0
 ```
 
@@ -32,7 +32,7 @@ dependencies:
   fluentui_system_icons: ^1.1.273
   otzaria_icons:
     git:
-      url: https://github.com/mmichaelush/otzaria_icons
+      url: https://github.com/Otzaria/otzaria_icons
       ref: v0.1.0
 ```
 

@@ -76,6 +76,44 @@ nested group behavior. It intentionally does not rewrite ambiguous geometry.
 of creating scale transforms. This policy was adopted after real transformed
 glyphs rendered poorly at 16–24 px despite looking acceptable at 80 px.
 
+### Preparing incompatible exports
+
+If visually final artwork was exported with strokes, text, masks, primitive
+shapes, nested transforms, or a different canvas, use the explicit preparation
+tool before generation:
+
+```console
+dart run tool/prepare_svg_sources.dart assets_src/svg/example_24_regular.svg
+```
+
+The tool requires Inkscape. Set `INKSCAPE` to its executable when it is not on
+`PATH`. It uses Inkscape's vector engine to convert text and strokes to
+outlines, resolve masks, apply nested transforms, map the viewport to 24x24,
+and write direct filled paths. It rejects results that still contain raster
+images, text, masks, or filters.
+
+This is a preparation step, not part of CI and not a substitute for review.
+Compare the source and prepared artwork visually before committing. Keep the
+source under version control while running the command so an unintended result
+can be reverted.
+
+## Common export mistakes
+
+| Problem | Why it fails | Correct action |
+| --- | --- | --- |
+| A 512x512 or other large `viewBox` | Font metrics and small-size rasterization become inconsistent | Export native 24x24 coordinates or run the preparation tool |
+| A transformed group around large paths | Stored geometry is not actually 24x24 | Apply the transform to every path |
+| `stroke`, `stroke-width`, or `<line>` | The font consumes filled contours | Convert strokes to paths while preserving caps and joins |
+| `<rect>`, `<circle>`, `<polygon>`, or `<polyline>` | These are not canonical committed sources | Convert every shape to a path |
+| `<text>` | Rendering depends on a local font and text engine | Convert text to outlines where its appearance is approved |
+| A mask, clipping path, or filter | OpenType glyphs do not retain SVG compositing | Resolve it to paths; use `evenodd` for intentional holes |
+| `transform-origin="center"` with a flip | Renderer support differs | Bake the flip into path coordinates |
+| Width/height other than exact `24` | Package metrics must be deterministic | Commit `width="24"` and `height="24"` |
+| A suffix such as `_reguiar` | It creates an invalid public name | Use exactly `_24_regular` or `_24_filled` |
+| A semantic typo such as `saerch` | Names become permanent after release | Correct spelling before first generation |
+| White paths used as erasers | Fonts are monochrome, so white becomes filled | Use compound paths and correct winding or `evenodd` |
+| A bitmap or data URI | Raster data cannot become a scalable glyph losslessly | Replace it with original vector artwork; tracing is not accepted |
+
 ## Validation levels
 
 Errors block generation: invalid XML, wrong name/viewBox, strokes, missing

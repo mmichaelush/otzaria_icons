@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.0 - 2026-07-19
+
+- Added 52 original Otzaria icons while preserving all 10 previously published
+  names and codepoints.
+- Moved repository metadata and installation links to the official
+  `Otzaria/otzaria_icons` repository.
+- Added a vector-safe Inkscape preparation tool for strokes, text, masks,
+  shapes, transforms, and non-24 canvases.
+- Canonicalized every committed SVG to direct filled 24x24 paths without
+  retaining raster data or renderer-dependent SVG features.
+- Corrected spelling in new public names before allocation and documented
+  common SVG export mistakes and their safe fixes.
+- Made the multi-size Windows golden grow automatically with the icon manifest.
+
 ## 0.1.3 - 2026-07-17
 
 - Increased the optical size of the restored `book_open_lines`,

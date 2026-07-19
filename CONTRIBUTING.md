@@ -82,6 +82,12 @@ rendering or overflow at 16-24 px. Export the final path coordinates from the
 vector editor before submission, then inspect the actual generated font at all
 required sizes.
 
+If the source application cannot produce this canonical structure, follow the
+[incompatible export preparation](docs/svg_requirements.md#preparing-incompatible-exports)
+workflow. Never remove a mask, stroke, transform, or text node without applying
+its visual effect to the resulting paths. Automatic tracing of raster artwork
+is not accepted as a lossless conversion.
+
 ## Generation workflow
 
 ```console

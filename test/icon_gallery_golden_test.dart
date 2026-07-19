@@ -18,7 +18,8 @@ void main() {
   });
 
   testWidgets('visual gallery at production sizes', (tester) async {
-    tester.view.physicalSize = const Size(800, 900);
+    final galleryHeight = generatedIconExpectations.length * 84.0 + 48.0;
+    tester.view.physicalSize = Size(800, galleryHeight);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
@@ -30,7 +31,7 @@ void main() {
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 for (final entry in generatedIconExpectations.entries)
                   SizedBox(

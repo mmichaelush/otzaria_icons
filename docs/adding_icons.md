@@ -5,6 +5,19 @@
 Place all SVGs directly in `assets_src/svg/`. A batch may contain one icon or
 regular/filled pairs. Follow `docs/svg_requirements.md`.
 
+Run validation before generation. If final artwork contains unsupported SVG
+structure, prepare only those files and validate again:
+
+```console
+dart run tool/validate.dart
+dart run tool/prepare_svg_sources.dart assets_src/svg/example_24_regular.svg
+dart run tool/validate.dart
+```
+
+Do not run preparation blindly over canonical icons. Review converted files at
+16, 20, 24, 32, and 48 pixels. Correct spelling before first generation because
+the generated name and codepoint become public API.
+
 ## 2. Run generation
 
 From the repository root:
@@ -54,6 +67,10 @@ flutter test
 
 The `--check` mode generates in a temporary directory, compares all derived
 artifacts, and leaves repository files untouched.
+
+The Windows golden surface grows automatically with the manifest, so every
+registered icon is rendered at all five production sizes. Accept a new golden
+only after checking for blank, clipped, crowded, or unexpectedly filled glyphs.
 
 Run the example gallery and inspect every new glyph. Also build
 `test_apps/minimal/` when generation or public `IconData` construction changes,
