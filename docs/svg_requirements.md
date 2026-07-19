@@ -98,6 +98,11 @@ root `<svg>` or a parent group. Do not move or delete inherited `stroke`,
 The preparation tool preserves and expands them together, so rounded caps,
 joins, widths, transforms, and proportions remain unchanged.
 
+White artwork inside a filled icon is treated as a knockout, not as another
+black shape. The preparation tool converts white mask/stroke geometry into an
+even-odd transparent hole suitable for a monochrome font. Never replace white
+eraser geometry with black before the compound path has been created.
+
 This is a preparation step, not part of CI and not a substitute for review.
 Compare the source and prepared artwork visually before committing. Keep the
 source under version control while running the command so an unintended result

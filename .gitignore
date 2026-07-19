@@ -3,6 +3,7 @@
 .localappdata/
 .android-sdk/
 .downloads/
+assets_incoming/
 .idea/
 *.iml
 .flutter-plugins

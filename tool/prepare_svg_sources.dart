@@ -29,6 +29,9 @@ void main(List<String> arguments) {
     final hasMask = originalDocument.descendants
         .whereType<XmlElement>()
         .any((element) => element.name.local == 'mask');
+    final hasWhiteEraser = originalDocument.descendants
+        .whereType<XmlElement>()
+        .any(_usesWhiteFillOrStroke);
     final prepared = _prepareForInkscape(originalDocument, hasMask);
     final stem = sourceFile.uri.pathSegments.last.replaceAll('.svg', '');
     final preparedFile = File('${temp.path}/$stem.prepared.svg')
@@ -55,7 +58,7 @@ void main(List<String> arguments) {
 
     final canonical = _canonicalize(
       XmlDocument.parse(importedFile.readAsStringSync()),
-      combineEvenOdd: hasMask,
+      combineEvenOdd: hasMask || hasWhiteEraser,
     );
     sourceFile.writeAsStringSync(canonical);
     stdout.writeln('Prepared $fileName${hasMask ? ' (mask flattened)' : ''}');
@@ -104,9 +107,8 @@ String _prepareForInkscape(XmlDocument document, bool hasMask) {
   var body = content.map((element) => element.toXmlString()).join('\n');
   body = body
       .replaceAll(RegExp(r'\s+transform-origin="center"'), '')
-      .replaceAll(
-          'transform="scale(-1, 1)"', 'transform="translate(24 0) scale(-1 1)"')
-      .replaceAll('fill="white"', 'fill="black"');
+      .replaceAll('transform="scale(-1, 1)"',
+          'transform="translate(24 0) scale(-1 1)"');
   const inheritedNames = {
     'color',
     'fill',
@@ -131,6 +133,20 @@ String _prepareForInkscape(XmlDocument document, bool hasMask) {
   if (inherited.isNotEmpty) body = '<g $inherited>$body</g>';
   return '<svg xmlns="http://www.w3.org/2000/svg" width="$width" '
       'height="$height" viewBox="$viewBox">$body</svg>\n';
+}
+
+bool _usesWhiteFillOrStroke(XmlElement element) {
+  final values = [
+    element.getAttribute('fill'),
+    element.getAttribute('stroke'),
+    element.getAttribute('style'),
+  ].whereType<String>().map((value) => value.toLowerCase());
+  return values.any(
+    (value) =>
+        value.contains('white') ||
+        value.contains('#fff') ||
+        value.contains('rgb(255'),
+  );
 }
 
 void _runInkscape(String executable, List<String> arguments) {

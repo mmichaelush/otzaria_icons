@@ -10,6 +10,8 @@
   adjustable preview size.
 - Corrected stroke expansion for 11 restored source icons and preserved
   presentation attributes inherited from the root SVG element.
+- Preserved white mask and stroke artwork as transparent knockouts in filled
+  monochrome glyphs, including PDF, Word, ZIM, upload, search, and link marks.
 
 ## 0.2.0 - 2026-07-19
 
