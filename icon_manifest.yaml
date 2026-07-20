@@ -1500,3 +1500,153 @@ icons:
     author: Otzaria contributors
     license: GPL-3.0-only
     upstream_commit: null
+  - id: icon-0101
+    name: alef_1_24_regular
+    source: assets_src/svg/alef_1_24_regular.svg
+    codepoint: 0xe064
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0102
+    name: alef_2_24_regular
+    source: assets_src/svg/alef_2_24_regular.svg
+    codepoint: 0xe065
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0103
+    name: alef_3_24_regular
+    source: assets_src/svg/alef_3_24_regular.svg
+    codepoint: 0xe066
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0104
+    name: alef_writing_24_regular
+    source: assets_src/svg/alef_writing_24_regular.svg
+    codepoint: 0xe067
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0105
+    name: book_open_alef_24_filled
+    source: assets_src/svg/book_open_alef_24_filled.svg
+    codepoint: 0xe068
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0106
+    name: book_open_alef_24_regular
+    source: assets_src/svg/book_open_alef_24_regular.svg
+    codepoint: 0xe069
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0107
+    name: book_open_tzurat_hadaf_24_filled
+    source: assets_src/svg/book_open_tzurat_hadaf_24_filled.svg
+    codepoint: 0xe06a
+    variant: filled
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0108
+    name: book_open_tzurat_hadaf_24_regular
+    source: assets_src/svg/book_open_tzurat_hadaf_24_regular.svg
+    codepoint: 0xe06b
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0109
+    name: search_in_the_text_24_regular
+    source: assets_src/svg/search_in_the_text_24_regular.svg
+    codepoint: 0xe06c
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0110
+    name: text_alef_bet_list_24_regular
+    source: assets_src/svg/text_alef_bet_list_24_regular.svg
+    codepoint: 0xe06d
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null

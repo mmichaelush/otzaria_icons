@@ -118,4 +118,16 @@ const generatedIconExpectations = <String, IconData>{
   'text_number_list_24_filled': OtzariaIcons.text_number_list_24_filled,
   'text_number_list_24_regular': OtzariaIcons.text_number_list_24_regular,
   'torah_scroll_24_regular': OtzariaIcons.torah_scroll_24_regular,
+  'alef_1_24_regular': OtzariaIcons.alef_1_24_regular,
+  'alef_2_24_regular': OtzariaIcons.alef_2_24_regular,
+  'alef_3_24_regular': OtzariaIcons.alef_3_24_regular,
+  'alef_writing_24_regular': OtzariaIcons.alef_writing_24_regular,
+  'book_open_alef_24_filled': OtzariaIcons.book_open_alef_24_filled,
+  'book_open_alef_24_regular': OtzariaIcons.book_open_alef_24_regular,
+  'book_open_tzurat_hadaf_24_filled':
+      OtzariaIcons.book_open_tzurat_hadaf_24_filled,
+  'book_open_tzurat_hadaf_24_regular':
+      OtzariaIcons.book_open_tzurat_hadaf_24_regular,
+  'search_in_the_text_24_regular': OtzariaIcons.search_in_the_text_24_regular,
+  'text_alef_bet_list_24_regular': OtzariaIcons.text_alef_bet_list_24_regular,
 };

@@ -43,9 +43,7 @@
 </head>
 <body>
   <header class="hero">
-<div style="text-align: center; padding: 0.5rem 0;">
-  <img src="https://otzaria.org/logo.svg" alt="אוצריא" style="max-width: 140px; height: auto; display: inline-block;">
-</div>
+    <div class="brand"><span class="brand-mark" aria-hidden="true">א</span><span>פרויקט אוצריא</span></div>
     <h1>ספריית האייקונים</h1>
     <p class="subtitle">אייקונים מקוריים עבור אוצריא, זמינים לתצוגה בכל גודל ומוכנים לשימוש בפרויקט.</p>
   </header>
@@ -64,19 +62,7 @@
     <section id="grid" aria-live="polite"></section>
     <p id="empty">לא נמצאו אייקונים מתאימים.</p>
   </main>
-<footer style="text-align: center; padding: 1.5rem; font-size: 0.9rem; line-height: 1.6; color: #555;">
-  <p style="margin: 0 0 0.5rem 0;">
-    פרויקט ספריית האייקונים הינו קוד פתוח ברישיון GPL-3.0
-    <br>
-    כהשלמה לספריית
-    <a href="https://github.com/microsoft/fluentui-system-icons" target="_blank" rel="noopener">Fluent UI System Icons</a>
-  </p>
-  <p style="margin: 0;">
-    <a href="https://www.otzaria.org/">אתר אוצריא</a>
-    ·
-    <a href="https://github.com/Otzaria/otzaria_icons">פרויקט האייקונים ב-GitHub</a>
-  </p>
-</footer>
+  <footer>פרויקט קוד פתוח ברישיון GPL-3.0 · <a href="https://www.otzaria.org/">אתר אוצריא</a> · <a href="https://github.com/Otzaria/otzaria_icons">GitHub</a></footer>
   <script>
   const icons = [
     { name: 'book_24_filled', codepoint: 0xe000 },
@@ -179,6 +165,16 @@
     { name: 'text_number_list_24_filled', codepoint: 0xe061 },
     { name: 'text_number_list_24_regular', codepoint: 0xe062 },
     { name: 'torah_scroll_24_regular', codepoint: 0xe063 },
+    { name: 'alef_1_24_regular', codepoint: 0xe064 },
+    { name: 'alef_2_24_regular', codepoint: 0xe065 },
+    { name: 'alef_3_24_regular', codepoint: 0xe066 },
+    { name: 'alef_writing_24_regular', codepoint: 0xe067 },
+    { name: 'book_open_alef_24_filled', codepoint: 0xe068 },
+    { name: 'book_open_alef_24_regular', codepoint: 0xe069 },
+    { name: 'book_open_tzurat_hadaf_24_filled', codepoint: 0xe06a },
+    { name: 'book_open_tzurat_hadaf_24_regular', codepoint: 0xe06b },
+    { name: 'search_in_the_text_24_regular', codepoint: 0xe06c },
+    { name: 'text_alef_bet_list_24_regular', codepoint: 0xe06d },
   ];
   const grid = document.querySelector('#grid');
   const search = document.querySelector('#search');

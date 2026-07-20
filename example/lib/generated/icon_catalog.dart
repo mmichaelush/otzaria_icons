@@ -168,4 +168,20 @@ const iconCatalog = <GalleryIcon>[
   GalleryIcon(
       'text_number_list_24_regular', OtzariaIcons.text_number_list_24_regular),
   GalleryIcon('torah_scroll_24_regular', OtzariaIcons.torah_scroll_24_regular),
+  GalleryIcon('alef_1_24_regular', OtzariaIcons.alef_1_24_regular),
+  GalleryIcon('alef_2_24_regular', OtzariaIcons.alef_2_24_regular),
+  GalleryIcon('alef_3_24_regular', OtzariaIcons.alef_3_24_regular),
+  GalleryIcon('alef_writing_24_regular', OtzariaIcons.alef_writing_24_regular),
+  GalleryIcon(
+      'book_open_alef_24_filled', OtzariaIcons.book_open_alef_24_filled),
+  GalleryIcon(
+      'book_open_alef_24_regular', OtzariaIcons.book_open_alef_24_regular),
+  GalleryIcon('book_open_tzurat_hadaf_24_filled',
+      OtzariaIcons.book_open_tzurat_hadaf_24_filled),
+  GalleryIcon('book_open_tzurat_hadaf_24_regular',
+      OtzariaIcons.book_open_tzurat_hadaf_24_regular),
+  GalleryIcon('search_in_the_text_24_regular',
+      OtzariaIcons.search_in_the_text_24_regular),
+  GalleryIcon('text_alef_bet_list_24_regular',
+      OtzariaIcons.text_alef_bet_list_24_regular),
 ];

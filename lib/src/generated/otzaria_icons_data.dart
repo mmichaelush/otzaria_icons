@@ -708,4 +708,74 @@ abstract final class OtzariaIcons {
     fontFamily: fontFamily,
     fontPackage: fontPackage,
   );
+
+  /// `alef_1_24_regular.svg`
+  static const IconData alef_1_24_regular = IconData(
+    0xe064,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `alef_2_24_regular.svg`
+  static const IconData alef_2_24_regular = IconData(
+    0xe065,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `alef_3_24_regular.svg`
+  static const IconData alef_3_24_regular = IconData(
+    0xe066,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `alef_writing_24_regular.svg`
+  static const IconData alef_writing_24_regular = IconData(
+    0xe067,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `book_open_alef_24_filled.svg`
+  static const IconData book_open_alef_24_filled = IconData(
+    0xe068,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `book_open_alef_24_regular.svg`
+  static const IconData book_open_alef_24_regular = IconData(
+    0xe069,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `book_open_tzurat_hadaf_24_filled.svg`
+  static const IconData book_open_tzurat_hadaf_24_filled = IconData(
+    0xe06a,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `book_open_tzurat_hadaf_24_regular.svg`
+  static const IconData book_open_tzurat_hadaf_24_regular = IconData(
+    0xe06b,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `search_in_the_text_24_regular.svg`
+  static const IconData search_in_the_text_24_regular = IconData(
+    0xe06c,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `text_alef_bet_list_24_regular.svg`
+  static const IconData text_alef_bet_list_24_regular = IconData(
+    0xe06d,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
 }
