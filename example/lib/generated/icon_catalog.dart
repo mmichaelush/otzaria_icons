@@ -91,4 +91,81 @@ const iconCatalog = <GalleryIcon>[
       'search_not_found_24_filled', OtzariaIcons.search_not_found_24_filled),
   GalleryIcon(
       'search_not_found_24_regular', OtzariaIcons.search_not_found_24_regular),
+  GalleryIcon('apps_list_24_filled', OtzariaIcons.apps_list_24_filled),
+  GalleryIcon('apps_list_24_regular', OtzariaIcons.apps_list_24_regular),
+  GalleryIcon(
+      'apps_list_detail_24_filled', OtzariaIcons.apps_list_detail_24_filled),
+  GalleryIcon(
+      'apps_list_detail_24_regular', OtzariaIcons.apps_list_detail_24_regular),
+  GalleryIcon('document_bullet_list_24_filled',
+      OtzariaIcons.document_bullet_list_24_filled),
+  GalleryIcon('document_bullet_list_24_regular',
+      OtzariaIcons.document_bullet_list_24_regular),
+  GalleryIcon('group_list_24_filled', OtzariaIcons.group_list_24_filled),
+  GalleryIcon('group_list_24_regular', OtzariaIcons.group_list_24_regular),
+  GalleryIcon('list_24_filled', OtzariaIcons.list_24_filled),
+  GalleryIcon('list_24_regular', OtzariaIcons.list_24_regular),
+  GalleryIcon('alef_24_filled', OtzariaIcons.alef_24_filled),
+  GalleryIcon('alef_24_regular', OtzariaIcons.alef_24_regular),
+  GalleryIcon(
+      'alef_behind_alef_24_regular', OtzariaIcons.alef_behind_alef_24_regular),
+  GalleryIcon(
+      'alef_deletion_24_regular', OtzariaIcons.alef_deletion_24_regular),
+  GalleryIcon(
+      'alef_near_alef_24_regular', OtzariaIcons.alef_near_alef_24_regular),
+  GalleryIcon(
+      'alef_with_eraser_24_regular', OtzariaIcons.alef_with_eraser_24_regular),
+  GalleryIcon('alef_with_flavors_24_regular',
+      OtzariaIcons.alef_with_flavors_24_regular),
+  GalleryIcon('alef_with_information_24_regular',
+      OtzariaIcons.alef_with_information_24_regular),
+  GalleryIcon('alef_with_punctuation_24_regular',
+      OtzariaIcons.alef_with_punctuation_24_regular),
+  GalleryIcon(
+      'alef_with_score_24_regular', OtzariaIcons.alef_with_score_24_regular),
+  GalleryIcon(
+      'beit_behind_alef_24_regular', OtzariaIcons.beit_behind_alef_24_regular),
+  GalleryIcon(
+      'beit_near_alef_24_regular', OtzariaIcons.beit_near_alef_24_regular),
+  GalleryIcon('booklet_24_regular', OtzariaIcons.booklet_24_regular),
+  GalleryIcon('calendar_24_filled', OtzariaIcons.calendar_24_filled),
+  GalleryIcon('calendar_24_regular', OtzariaIcons.calendar_24_regular),
+  GalleryIcon('clipboard_task_list_24_filled',
+      OtzariaIcons.clipboard_task_list_24_filled),
+  GalleryIcon('clipboard_task_list_24_regular',
+      OtzariaIcons.clipboard_task_list_24_regular),
+  GalleryIcon(
+      'clipboard_text_24_filled', OtzariaIcons.clipboard_text_24_filled),
+  GalleryIcon('clipboard_text_rtl_24_regular',
+      OtzariaIcons.clipboard_text_rtl_24_regular),
+  GalleryIcon('icon_x_24_regular', OtzariaIcons.icon_x_24_regular),
+  GalleryIcon('otzaria_icon_2_page_24_regular',
+      OtzariaIcons.otzaria_icon_2_page_24_regular),
+  GalleryIcon('otzaria_icon_2_page_line_24_regular',
+      OtzariaIcons.otzaria_icon_2_page_line_24_regular),
+  GalleryIcon('person_24_filled', OtzariaIcons.person_24_filled),
+  GalleryIcon('person_24_regular', OtzariaIcons.person_24_regular),
+  GalleryIcon('search_in_the_document_24_regular',
+      OtzariaIcons.search_in_the_document_24_regular),
+  GalleryIcon('stander_24_filled', OtzariaIcons.stander_24_filled),
+  GalleryIcon('stander_24_regular', OtzariaIcons.stander_24_regular),
+  GalleryIcon('task_list_24_filled', OtzariaIcons.task_list_24_filled),
+  GalleryIcon('task_list_24_regular', OtzariaIcons.task_list_24_regular),
+  GalleryIcon(
+      'task_list_square_24_filled', OtzariaIcons.task_list_square_24_filled),
+  GalleryIcon(
+      'task_list_square_24_regular', OtzariaIcons.task_list_square_24_regular),
+  GalleryIcon(
+      'text_bullet_list_24_filled', OtzariaIcons.text_bullet_list_24_filled),
+  GalleryIcon(
+      'text_bullet_list_24_regular', OtzariaIcons.text_bullet_list_24_regular),
+  GalleryIcon(
+      'text_continuous_24_filled', OtzariaIcons.text_continuous_24_filled),
+  GalleryIcon(
+      'text_continuous_24_regular', OtzariaIcons.text_continuous_24_regular),
+  GalleryIcon(
+      'text_number_list_24_filled', OtzariaIcons.text_number_list_24_filled),
+  GalleryIcon(
+      'text_number_list_24_regular', OtzariaIcons.text_number_list_24_regular),
+  GalleryIcon('torah_scroll_24_regular', OtzariaIcons.torah_scroll_24_regular),
 ];

@@ -26,6 +26,13 @@ void main(List<String> arguments) {
     final sourceFile = File(fileName);
     final original = sourceFile.readAsStringSync();
     final originalDocument = XmlDocument.parse(original);
+    if (_canCanonicalizeDirectly(originalDocument)) {
+      sourceFile.writeAsStringSync(
+        _canonicalize(originalDocument, combineEvenOdd: false),
+      );
+      stdout.writeln('Prepared $fileName (direct path flattening)');
+      continue;
+    }
     final hasMask = originalDocument.descendants
         .whereType<XmlElement>()
         .any((element) => element.name.local == 'mask');
@@ -63,6 +70,19 @@ void main(List<String> arguments) {
     sourceFile.writeAsStringSync(canonical);
     stdout.writeln('Prepared $fileName${hasMask ? ' (mask flattened)' : ''}');
   }
+}
+
+bool _canCanonicalizeDirectly(XmlDocument document) {
+  for (final element in document.descendants.whereType<XmlElement>()) {
+    if (!{'svg', 'g', 'path', 'defs'}.contains(element.name.local)) {
+      return false;
+    }
+    if (element.getAttribute('stroke') != null ||
+        (element.getAttribute('style') ?? '').contains('stroke:')) {
+      return false;
+    }
+  }
+  return true;
 }
 
 String _findInkscape() {
@@ -214,7 +234,7 @@ String _canonicalize(XmlDocument document, {required bool combineEvenOdd}) {
         final style = element.getAttribute('style') ?? '';
         final evenOdd = element.getAttribute('fill-rule') == 'evenodd' ||
             style.contains('fill-rule:evenodd');
-        paths.add(_CanonicalPath(writer.result, evenOdd));
+        paths.add(_CanonicalPath(writer.finish(), evenOdd));
       }
     }
     for (final child in element.children.whereType<XmlElement>()) {
@@ -260,12 +280,19 @@ class _PathWriter extends PathProxy {
 
   final _Matrix transform;
   final StringBuffer _buffer = StringBuffer();
-  String get result => _buffer.toString();
+  bool _subpathOpen = false;
+
+  String finish() {
+    if (_subpathOpen) close();
+    return _buffer.toString();
+  }
 
   @override
   void moveTo(double x, double y) {
+    if (_subpathOpen) close();
     final point = transform.apply(x, y);
     _buffer.write('M${_number(point.x)} ${_number(point.y)}');
+    _subpathOpen = true;
   }
 
   @override
@@ -294,7 +321,11 @@ class _PathWriter extends PathProxy {
   }
 
   @override
-  void close() => _buffer.write('Z');
+  void close() {
+    if (!_subpathOpen) return;
+    _buffer.write('Z');
+    _subpathOpen = false;
+  }
 }
 
 class _Point {

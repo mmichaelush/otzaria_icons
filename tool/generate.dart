@@ -1,6 +1,10 @@
 import 'dart:io';
 
 import 'package:icon_font_generator/icon_font_generator.dart';
+// ignore: implementation_imports
+import 'package:icon_font_generator/src/svg/outline_converter.dart';
+// ignore: implementation_imports
+import 'package:icon_font_generator/src/svg/path.dart';
 // Version 4.1.0 otherwise embeds the current timestamp in the OTF head table.
 // This exact version is pinned, and the deterministic timestamp is covered by
 // the generation-drift check.
@@ -99,21 +103,18 @@ Future<void> main(List<String> arguments) async {
   }
 
   MockableDateTime.mockedDate = DateTime.utc(2026);
-  final result = svgToOtf(
-    svgMap: svgMap,
-    fontName: config.fontFamily,
-    normalize: config.normalize,
-    ignoreShapes: config.ignoreShapes,
-  );
-  if (result.glyphList.length != manifest.icons.length) {
-    _fail(
-      'Generator returned ${result.glyphList.length} glyphs for '
-      '${manifest.icons.length} manifest icons.',
-    );
-  }
+  final glyphs = <GenericGlyph>[
+    for (final icon in manifest.icons)
+      _glyphFromSvg(
+        icon.name,
+        icon.codepoint,
+        svgMap[icon.name]!,
+        ignoreShapes: config.ignoreShapes,
+      ),
+  ];
   for (var index = 0; index < manifest.icons.length; index++) {
     final expected = manifest.icons[index];
-    final actual = result.glyphList[index].metadata;
+    final actual = glyphs[index].metadata;
     if (actual.name != expected.name || actual.charCode != expected.codepoint) {
       _fail(
         'Glyph mismatch at index $index: expected ${expected.name} at '
@@ -124,7 +125,14 @@ Future<void> main(List<String> arguments) async {
   }
 
   File(config.fontFile).parent.createSync(recursive: true);
-  writeToFile(config.fontFile, result.font);
+  final font = OpenTypeFont.createFromGlyphs(
+    glyphList: glyphs,
+    fontName: config.fontFamily,
+    normalize: config.normalize,
+    useOpenType: true,
+    usePostV2: true,
+  );
+  writeToFile(config.fontFile, font);
   File(config.dartOutput)
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(_generateDart(config, manifest.icons));
@@ -169,6 +177,92 @@ Future<void> main(List<String> arguments) async {
   stdout.writeln(
     'Generated ${manifest.icons.length} icons and all derived artifacts.',
   );
+}
+
+GenericGlyph _glyphFromSvg(
+  String name,
+  int codepoint,
+  String source, {
+  required bool ignoreShapes,
+}) {
+  final svg = Svg.parse(name, source, ignoreShapes: ignoreShapes);
+  final outlines = <Outline>[];
+  for (final path in svg.elementList.whereType<PathElement>()) {
+    final pathOutlines = PathToOutlineConverter(svg, path).convert();
+    outlines.addAll(_convertPathToNonZero(pathOutlines));
+  }
+  return GenericGlyph(
+    outlines,
+    svg.viewBox,
+    GenericGlyphMetadata(
+      charCode: codepoint,
+      name: name,
+      ratioX: svg.ratioX,
+      ratioY: svg.ratioY,
+      offset: svg.offset,
+      preview: svg.toBase64(),
+    ),
+  );
+}
+
+List<Outline> _convertPathToNonZero(
+  List<Outline> outlines,
+) {
+  return outlines.map((outline) {
+    if (outline.fillRule != FillRule.evenodd) return outline.copy();
+    final point = outline.pointList.first;
+    var depth = 0;
+    final outlineArea = _signedArea(outline).abs();
+    for (final container in outlines) {
+      if (identical(container, outline)) continue;
+      if (_signedArea(container).abs() <= outlineArea) continue;
+      if (_containsPoint(container, point.x.toDouble(), point.y.toDouble())) {
+        depth++;
+      }
+    }
+    final shouldBePositive = depth.isEven;
+    final isPositive = _signedArea(outline) > 0;
+    final points = outline.pointList.toList();
+    final curves = outline.isOnCurveList.toList();
+    if (isPositive != shouldBePositive) {
+      points.setAll(0, points.reversed.toList());
+      curves.setAll(0, curves.reversed.toList());
+    }
+    return Outline(
+        points, curves, false, outline.hasQuadCurves, FillRule.nonzero);
+  }).toList();
+}
+
+double _signedArea(Outline outline) {
+  var area = 0.0;
+  final points = outline.pointList;
+  for (var i = 0; i < points.length; i++) {
+    final a = points[i];
+    final b = points[(i + 1) % points.length];
+    area += a.x * b.y - b.x * a.y;
+  }
+  return area / 2;
+}
+
+bool _containsPoint(Outline outline, double x, double y) {
+  final points = <({double x, double y})>[
+    for (var i = 0; i < outline.pointList.length; i++)
+      if (outline.isOnCurveList[i])
+        (
+          x: outline.pointList[i].x.toDouble(),
+          y: outline.pointList[i].y.toDouble()
+        ),
+  ];
+  var inside = false;
+  for (var i = 0, j = points.length - 1; i < points.length; j = i++) {
+    final a = points[i];
+    final b = points[j];
+    if ((a.y > y) != (b.y > y) &&
+        x < (b.x - a.x) * (y - a.y) / (b.y - a.y) + a.x) {
+      inside = !inside;
+    }
+  }
+  return inside;
 }
 
 Future<void> _runCanvasNormalization() async {
