@@ -37,7 +37,7 @@ into a single non-overlapping, consistently-wound path whose filled area is
 exactly what the catalog shows. It is idempotent, and it automatically **skips**
 intended knockout icons (a whole white shape sitting inside a solid body, e.g.
 `document_word_24_filled`), which rely on the font's winding cancellation and
-must keep their separate paths. Requires `pip install skia-pathops fonttools`.
+must keep their separate paths. Requires `pip install -r tool/requirements.txt`.
 CI runs `--check` and fails if any committed source still overlaps.
 
 ## 2. Run generation
@@ -50,7 +50,7 @@ dart run tool/generate.dart
 ```
 
 Generation requires Python 3 with `skia-pathops` and `fonttools`
-(`pip install skia-pathops fonttools`) for the final glyph-repair step.
+(`pip install -r tool/requirements.txt`) for the final glyph-repair step.
 
 Generation performs this sequence:
 

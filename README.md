@@ -170,7 +170,7 @@ Generation requires Python 3 with `skia-pathops` and `fonttools` in addition to
 the Flutter/Dart SDK:
 
 ```console
-python3 -m pip install skia-pathops fonttools   # once
+python3 -m pip install -r tool/requirements.txt   # once
 dart run tool/generate.dart
 dart run tool/generate.dart --check
 flutter analyze

@@ -8,7 +8,7 @@ from the repository root:
 
 ```console
 flutter pub get
-python3 -m pip install skia-pathops fonttools   # once
+python3 -m pip install -r tool/requirements.txt   # once
 dart run tool/validate.dart
 python3 tool/normalize_svg_overlaps.py --check   # no overlapping/seaming paths
 dart run tool/generate.dart --check

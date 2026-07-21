@@ -1,0 +1,6 @@
+# Python dependencies for the generation pipeline.
+# Pinned so tool/repair_glyphs.py produces byte-identical output locally and in
+# CI, keeping `dart run tool/generate.dart --check` reproducible.
+# After changing these, regenerate the font: dart run tool/generate.dart
+skia-pathops==0.9.2
+fonttools==4.63.0

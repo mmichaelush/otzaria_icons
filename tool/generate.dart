@@ -341,7 +341,6 @@ Future<void> _runGlyphRepair() async {
       'Could not run tool/repair_glyphs.py: no "python3"/"python" on PATH. '
       'Install Python 3 with: pip install skia-pathops fonttools',
     );
-    return;
   }
   stdout.write(result.stdout);
   stderr.write(result.stderr);

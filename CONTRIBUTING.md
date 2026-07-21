@@ -91,13 +91,13 @@ is not accepted as a lossless conversion.
 ## Generation workflow
 
 Prerequisites: the Flutter/Dart SDK, plus Python 3 with `skia-pathops` and
-`fonttools` (`pip install skia-pathops fonttools`). Generation shells out to
+`fonttools` (`pip install -r tool/requirements.txt`). Generation shells out to
 `tool/repair_glyphs.py` as its final step, and `tool/normalize_svg_overlaps.py`
 is used when preparing sources; both require these packages.
 
 ```console
 flutter pub get
-python3 -m pip install skia-pathops fonttools   # once
+python3 -m pip install -r tool/requirements.txt   # once
 dart run tool/generate.dart
 dart run tool/generate.dart --check
 flutter analyze
