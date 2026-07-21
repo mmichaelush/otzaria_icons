@@ -174,6 +174,8 @@ Future<void> main(List<String> arguments) async {
     exit(analyzeResult.exitCode);
   }
 
+  await _runGlyphRepair();
+
   stdout.writeln(
     'Generated ${manifest.icons.length} icons and all derived artifacts.',
   );
@@ -311,6 +313,36 @@ Future<void> _runValidation() async {
     Platform.resolvedExecutable,
     ['run', 'tool/validate.dart'],
   );
+  stdout.write(result.stdout);
+  stderr.write(result.stderr);
+  if (result.exitCode != 0) exit(result.exitCode);
+}
+
+/// Rewrites each non-knockout glyph outline in the freshly generated OTF
+/// directly from its source SVG. icon_font_generator's outline converter
+/// distorts a few complex glyphs (a horizontal shift on
+/// book_open_large_search_24_filled, contour damage on stander /
+/// search_in_the_text) even from clean, correctly-wound sources; this makes the
+/// font geometry match the source (and docs/icon_catalog.svg) exactly. It is
+/// deterministic and preserves all generator metadata, so `--check` stays
+/// reproducible. Requires Python 3 with skia-pathops and fonttools.
+Future<void> _runGlyphRepair() async {
+  ProcessResult? result;
+  for (final python in ['python3', 'python']) {
+    try {
+      result = await Process.run(python, ['tool/repair_glyphs.py']);
+      break;
+    } on ProcessException {
+      continue; // try the next interpreter name
+    }
+  }
+  if (result == null) {
+    _fail(
+      'Could not run tool/repair_glyphs.py: no "python3"/"python" on PATH. '
+      'Install Python 3 with: pip install skia-pathops fonttools',
+    );
+    return;
+  }
   stdout.write(result.stdout);
   stderr.write(result.stderr);
   if (result.exitCode != 0) exit(result.exitCode);
@@ -671,6 +703,7 @@ String _generateWebCatalog(List<ManifestIcon> icons) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="קטלוג האייקונים של אוצריא">
   <title>אייקוני אוצריא</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='5' y='5' width='90' height='90' rx='12' fill='%234A90D9'/><circle cx='35' cy='35' r='15' fill='white'/><circle cx='50' cy='50' r='8' fill='%23FFD700'/><path d='M15 80l25-30 20 20 15-10 20 25' stroke='white' stroke-width='4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
   <style>
     @font-face {
       font-family: "OtzariaIcons";
@@ -709,9 +742,11 @@ String _generateWebCatalog(List<ManifestIcon> icons) {
 </head>
 <body>
   <header class="hero">
-    <div class="brand"><span class="brand-mark" aria-hidden="true">א</span><span>פרויקט אוצריא</span></div>
+    <div style="text-align: center; padding: 0.5rem 0;">
+      <img src="https://otzaria.org/logo.svg" alt="אוצריא" style="max-width: 140px; height: auto; display: inline-block;">
+    </div>
     <h1>ספריית האייקונים</h1>
-    <p class="subtitle">אייקונים מקוריים עבור אוצריא, זמינים לתצוגה בכל גודל ומוכנים לשימוש בפרויקט.</p>
+    <p class="subtitle">אייקונים נוספים עבור אוצריא, זמינים לתצוגה בכל גודל ומוכנים לשימוש בפרויקט.</p>
   </header>
   <main>
     <div class="toolbar">
@@ -728,7 +763,19 @@ String _generateWebCatalog(List<ManifestIcon> icons) {
     <section id="grid" aria-live="polite"></section>
     <p id="empty">לא נמצאו אייקונים מתאימים.</p>
   </main>
-  <footer>פרויקט קוד פתוח ברישיון GPL-3.0 · <a href="https://www.otzaria.org/">אתר אוצריא</a> · <a href="https://github.com/Otzaria/otzaria_icons">GitHub</a></footer>
+  <footer style="text-align: center; padding: 1.5rem; font-size: 0.9rem; line-height: 1.6; color: #555;">
+    <p style="margin: 0 0 0.5rem 0;">
+      פרויקט ספריית האייקונים הינו קוד פתוח ברישיון GPL-3.0
+      <br>
+      כהשלמה לספריית
+      <a href="https://github.com/microsoft/fluentui-system-icons" target="_blank" rel="noopener">Fluent UI System Icons</a>
+    </p>
+    <p style="margin: 0;">
+      <a href="https://www.otzaria.org/">אתר אוצריא</a>
+      ·
+      <a href="https://github.com/Otzaria/otzaria_icons">פרויקט האייקונים ב-GitHub</a>
+    </p>
+  </footer>
   <script>
   const icons = [
 {{ICON_DATA}}

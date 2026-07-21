@@ -2,11 +2,15 @@
 
 ## Local validation
 
-Run from the repository root:
+Generation and its drift check require Python 3 with `skia-pathops` and
+`fonttools` (the glyph-repair step) in addition to the Flutter/Dart SDK. Run
+from the repository root:
 
 ```console
 flutter pub get
+python3 -m pip install skia-pathops fonttools   # once
 dart run tool/validate.dart
+python3 tool/normalize_svg_overlaps.py --check   # no overlapping/seaming paths
 dart run tool/generate.dart --check
 flutter analyze
 flutter test
@@ -46,8 +50,10 @@ that Flutter's output font is smaller than the complete package font.
 The main CI workflow runs:
 
 - package analysis/tests on the current generator toolchain;
+- an overlapping/seaming SVG-path check (`normalize_svg_overlaps.py --check`);
 - package consumption on minimum Flutter, without generator-only dependencies;
-- read-only generated-file drift validation;
+- read-only generated-file drift validation (installs Python `skia-pathops` and
+  `fonttools` for the glyph-repair step invoked by `generate.dart`);
 - example analysis/tests;
 - Web tree-shaking release build and numeric subset assertion;
 - Android release builds for minimal and gallery applications;

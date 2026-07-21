@@ -34,6 +34,17 @@ produce byte-identical output.
 font bytes are build-system behavior. Upgrading it requires repeating the
 generator and codepoint proof of concept.
 
+As its final step, `generate.dart` runs `tool/repair_glyphs.py`, which rewrites
+each non-knockout glyph outline directly from its source SVG (24×24 mapped onto
+the em, y-flipped, no re-fitting). The pinned generator's outline converter
+distorts a few complex glyphs — a horizontal shift on
+`book_open_large_search_24_filled`, contour damage on `stander` and
+`search_in_the_text` — even from clean, correctly wound sources; this step makes
+the font geometry byte-for-byte what the sources and `docs/icon_catalog.svg`
+show. It is deterministic, preserves the fixed head timestamp and all generator
+metadata, and leaves the three intended interior knockouts untouched. It
+therefore requires Python 3 with `skia-pathops` and `fonttools`.
+
 ## Public API
 
 `lib/otzaria_icons.dart` exports only generated icon constants. Gallery catalogs

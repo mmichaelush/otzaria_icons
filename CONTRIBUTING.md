@@ -90,17 +90,36 @@ is not accepted as a lossless conversion.
 
 ## Generation workflow
 
+Prerequisites: the Flutter/Dart SDK, plus Python 3 with `skia-pathops` and
+`fonttools` (`pip install skia-pathops fonttools`). Generation shells out to
+`tool/repair_glyphs.py` as its final step, and `tool/normalize_svg_overlaps.py`
+is used when preparing sources; both require these packages.
+
 ```console
 flutter pub get
+python3 -m pip install skia-pathops fonttools   # once
 dart run tool/generate.dart
 dart run tool/generate.dart --check
 flutter analyze
 flutter test
 ```
 
-The generator allocates IDs/codepoints and updates all derived artifacts. Review
-the new `icon_manifest.yaml` record. Do not edit generated Dart, font, catalog,
+The generator allocates IDs/codepoints and updates all derived artifacts. Its
+final step (`tool/repair_glyphs.py`) rewrites each non-knockout glyph outline
+directly from its source SVG, because the pinned `icon_font_generator` distorts
+some complex glyphs during outline conversion (a horizontal shift on
+`book_open_large_search_24_filled`, contour damage on `stander` and
+`search_in_the_text`) even from clean sources. Review the new
+`icon_manifest.yaml` record. Do not edit generated Dart, font, catalog,
 expectations, or notices files manually.
+
+New or edited source SVGs must be free of overlapping/seaming paths, which
+corrupt the merged glyph. Check and fix them before generating:
+
+```console
+python3 tool/normalize_svg_overlaps.py --check    # report at-risk sources
+python3 tool/normalize_svg_overlaps.py            # normalize them
+```
 
 Existing IDs, names, and codepoints are immutable. Never reuse a codepoint or
 delete a glyph to close a gap. A rename is implemented as a deprecated alias,

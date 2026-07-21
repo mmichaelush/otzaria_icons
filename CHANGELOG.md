@@ -1,5 +1,29 @@
 # Changelog
 
+## Unreleased
+
+- Fixed glyph corruption affecting 34 icons whose independent `<path>` layers
+  overlapped or seamed: correct in the browser and catalog, but merged into one
+  nonzero-fill glyph the font rendered unintended white holes, hairline seams,
+  and (worst case, `book_open_large_search_24_filled`) a shredded quadrant.
+- Added `tool/normalize_svg_overlaps.py`, which `simplify`s and boolean-unions
+  each icon's paths into one clean, non-overlapping, consistently-wound outline
+  identical to the catalog, and normalized all 107 affected/at-risk sources.
+- Preserved the three intended interior knockouts (`document_word_24_filled`,
+  `document_bullet_list_24_filled`, `book_open_alef_24_filled`), which the tool
+  detects and skips.
+- Added a CI check (`normalize_svg_overlaps.py --check`) that fails when a
+  committed source still contains overlapping or seaming paths.
+- Added `tool/repair_glyphs.py`, run as the final generation step, which
+  rewrites each non-knockout glyph outline directly from its source SVG. The
+  pinned `icon_font_generator` distorts some complex glyphs during outline
+  conversion (a ~4-unit horizontal shift on `book_open_large_search_24_filled`,
+  contour damage on `stander_24_filled` and `search_in_the_text_24_regular`)
+  even from clean sources; this makes every glyph match the catalog exactly. It
+  is deterministic, preserves the fixed font timestamp and all generator
+  metadata, and leaves intended knockouts untouched. Generation now requires
+  Python 3 with `skia-pathops` and `fonttools`.
+
 ## 0.2.1 - 2026-07-19
 
 - Removed the 10 legacy icon names from the former personal repository; their

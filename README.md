@@ -55,7 +55,7 @@ dependencies:
   otzaria_icons:
     git:
       url: https://github.com/Otzaria/otzaria_icons
-      ref: v0.2.1
+      ref: v0.2.0
 ```
 
 Then fetch dependencies:
@@ -156,14 +156,21 @@ codepoints are never silently changed, deleted, or reused.
 1. Export a valid SVG into `assets_src/svg/`.
 2. Use the exact naming convention above.
 3. Convert every stroke to a closed filled path.
-4. Run the generator; it validates and sanitizes input, allocates the next
-   immutable codepoint, updates the manifest, builds the OTF, and regenerates
-   Dart/test/gallery/notices files.
-5. Inspect the gallery in regular/filled, light/dark, LTR/RTL, and all supported
+4. Resolve any overlapping/seaming paths into one clean outline with
+   `python3 tool/normalize_svg_overlaps.py` (they render fine in a browser but
+   corrupt in the merged font glyph).
+5. Run the generator; it validates and sanitizes input, allocates the next
+   immutable codepoint, updates the manifest, builds the OTF, repairs glyph
+   outlines from source, and regenerates Dart/test/gallery/notices files.
+6. Inspect the gallery in regular/filled, light/dark, LTR/RTL, and all supported
    preview sizes.
-6. Run the complete validation suite and update `CHANGELOG.md`.
+7. Run the complete validation suite and update `CHANGELOG.md`.
+
+Generation requires Python 3 with `skia-pathops` and `fonttools` in addition to
+the Flutter/Dart SDK:
 
 ```console
+python3 -m pip install skia-pathops fonttools   # once
 dart run tool/generate.dart
 dart run tool/generate.dart --check
 flutter analyze

@@ -21,7 +21,13 @@ visual review.
   editor before adding them.
 - Avoid geometry touching the canvas edge unless the design explicitly demands
   it.
-- Multiple `<path>` elements are allowed.
+- Multiple `<path>` elements are allowed, but they must not rely on being
+  painted as separate layers. The font merges every path into one nonzero-fill
+  glyph, so overlapping black layers with opposing winding cancel to unintended
+  white holes and touching sub-paths leave hairline seams — both invisible in a
+  browser and in `docs/icon_catalog.svg`, both corrupt in the font. Resolve them
+  into one clean outline with `tool/normalize_svg_overlaps.py` (see
+  `docs/adding_icons.md`). Genuine interior knockouts are exempt; see below.
 - Committed source paths must use the final 24×24 coordinate system. A
   large-coordinate path wrapped in `<g transform="... scale(...)">` is rejected
   even if it appears to fit the canvas, because font conversion and hinting can

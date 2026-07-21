@@ -27,6 +27,14 @@ jobs:
           cache: true
       - run: flutter pub get
       - run: dart run tool/validate.dart
+      - name: Warn on overlapping/seaming SVG paths
+        # Independent black <path> layers composite cleanly in a browser but are
+        # merged into one nonzero-fill glyph in the font, where overlaps and
+        # touching seams corrupt. This flags any source that still needs
+        # `dart`-independent normalization before generation.
+        run: |
+          python3 -m pip install --quiet --break-system-packages skia-pathops fonttools
+          python3 tool/normalize_svg_overlaps.py --check
       - run: flutter analyze
       - run: flutter test
 
@@ -62,6 +70,8 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
+      - name: Python for the glyph-repair step
+        run: python3 -m pip install --quiet --break-system-packages skia-pathops fonttools
       - run: dart run tool/generate.dart --check
 
   example:

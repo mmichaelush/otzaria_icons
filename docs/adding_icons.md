@@ -18,6 +18,28 @@ Do not run preparation blindly over canonical icons. Review converted files at
 16, 20, 24, 32, and 48 pixels. Correct spelling before first generation because
 the generated name and codepoint become public API.
 
+### Resolve overlapping / seaming paths
+
+The font merges every `<path>` of an icon into a single glyph filled with the
+nonzero winding rule. Independent black layers that overlap, or sub-paths that
+merely touch, look fine in a browser and in `docs/icon_catalog.svg` (each path is
+painted separately) but corrupt in the font: overlaps with opposing winding
+knock out unintended white holes, and touching edges leave hairline seams. Check
+new artwork and normalize it into one clean, font-safe outline:
+
+```console
+python3 tool/normalize_svg_overlaps.py --check                       # report only
+python3 tool/normalize_svg_overlaps.py assets_src/svg/example_24_regular.svg
+```
+
+The tool `simplify`s each path (honouring its fill-rule) and boolean-unions them
+into a single non-overlapping, consistently-wound path whose filled area is
+exactly what the catalog shows. It is idempotent, and it automatically **skips**
+intended knockout icons (a whole white shape sitting inside a solid body, e.g.
+`document_word_24_filled`), which rely on the font's winding cancellation and
+must keep their separate paths. Requires `pip install skia-pathops fonttools`.
+CI runs `--check` and fails if any committed source still overlaps.
+
 ## 2. Run generation
 
 From the repository root:
@@ -26,6 +48,9 @@ From the repository root:
 flutter pub get
 dart run tool/generate.dart
 ```
+
+Generation requires Python 3 with `skia-pathops` and `fonttools`
+(`pip install skia-pathops fonttools`) for the final glyph-repair step.
 
 Generation performs this sequence:
 
@@ -37,7 +62,14 @@ Generation performs this sequence:
 6. verify actual generated glyph names and codepoints;
 7. regenerate the public Dart API, gallery catalog, test expectations, and
    third-party notices;
-8. format and analyze the generated public API.
+8. format and analyze the generated public API;
+9. repair glyph outlines from source (`tool/repair_glyphs.py`): the pinned
+   `icon_font_generator` distorts a few complex glyphs during outline
+   conversion — a horizontal shift on `book_open_large_search_24_filled`,
+   contour damage on `stander` and `search_in_the_text` — even from clean
+   sources. This step rewrites each non-knockout glyph's outline directly from
+   its SVG so the font matches the catalog exactly. It is deterministic and
+   preserves all generator metadata; intended knockouts are left untouched.
 
 New records receive an opaque stable ID such as `icon-0011`. Never change an ID
 after allocation. Complete or correct the new manifest record if its provenance,
