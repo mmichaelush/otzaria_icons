@@ -26,6 +26,8 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
       - run: dart run tool/validate.dart
       - name: Warn on overlapping/seaming SVG paths
         # Independent black <path> layers composite cleanly in a browser but are
@@ -35,6 +37,11 @@ jobs:
         run: |
           python3 -m pip install --quiet --break-system-packages -r tool/requirements.txt
           python3 tool/normalize_svg_overlaps.py --check
+      - name: Verify no tofu (every codepoint has a real glyph)
+        # Widget tests build an Icon without throwing even for a blank/missing
+        # glyph. This asserts every manifest codepoint maps to a non-empty
+        # outline in the committed font, cross-platform.
+        run: python3 tool/check_glyph_coverage.py
       - run: flutter analyze
       - run: flutter test
 

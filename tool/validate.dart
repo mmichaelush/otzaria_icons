@@ -226,6 +226,34 @@ void main(List<String> arguments) {
           errors.add('icon_manifest.yaml: "$name" has no author');
         }
       }
+      // The generator (icon_font_generator 4.1.0) requires codepoints to be a
+      // dense run from 0xE000. A manifest can otherwise satisfy every check
+      // above yet fail generation at _requireContiguousCodepoints. Enforce the
+      // same contract here so validation reflects what generation demands.
+      const codepointStart = 0xe000;
+      if (codepoints.isNotEmpty) {
+        final sorted = codepoints.toList()..sort();
+        if (sorted.first != codepointStart) {
+          errors.add(
+            'icon_manifest.yaml: codepoints must start at '
+            '0x${codepointStart.toRadixString(16).toUpperCase()} '
+            '(lowest is 0x${sorted.first.toRadixString(16).toUpperCase()})',
+          );
+        } else if (sorted.last - sorted.first + 1 != sorted.length) {
+          final missing = <String>[];
+          for (var cp = sorted.first; cp <= sorted.last; cp++) {
+            if (!codepoints.contains(cp)) {
+              missing.add('0x${cp.toRadixString(16).toUpperCase()}');
+            }
+          }
+          errors.add(
+            'icon_manifest.yaml: codepoints must be contiguous; missing '
+            '${missing.join(', ')}. Codepoints are append-only — removing an '
+            'icon must not leave a gap.',
+          );
+        }
+      }
+
       final unregistered = sourceNames.difference(names);
       if (unregistered.isNotEmpty) {
         warnings.add(

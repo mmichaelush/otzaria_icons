@@ -42,8 +42,8 @@ import sys, os, re, glob
 
 try:
     import pathops
-    from fontTools.svgLib.path import parse_path
     from fontTools.pens.svgPathPen import SVGPathPen
+    from glyph_geometry import simplified, is_knockout_index
 except ImportError as e:
     sys.exit("Missing dependency: %s. Run: pip install skia-pathops fonttools" % e)
 
@@ -66,33 +66,14 @@ def read_paths(text):
     return out
 
 
-def _fill(fr):
-    return pathops.FillType.EVEN_ODD if fr == "evenodd" else pathops.FillType.WINDING
-
-
-def simplified(d, fr):
-    p = pathops.Path()
-    parse_path(d, p.getPen())
-    p.fillType = _fill(fr)
-    return pathops.simplify(p)
-
-
 def is_knockout(paths):
-    """True if a whole path sits (>=97%) inside the union of the others:
-    an intended white knockout that unioning would destroy."""
+    """True if a whole path sits inside the union of the others: an intended
+    white knockout that unioning would destroy. Threshold and detection live in
+    glyph_geometry so this stays in lockstep with repair_glyphs.py."""
     if len(paths) < 2:
         return False
     simps = [simplified(d, fr) for d, fr in paths]
-    for i, pi in enumerate(simps):
-        others = [s for j, s in enumerate(simps) if j != i]
-        u = pathops.Path()
-        pathops.union(others, u.getPen())
-        inter = pathops.Path()
-        pathops.intersection([pi], [u], inter.getPen())
-        ai = abs(pi.area)
-        if ai > 1e-6 and abs(inter.area) / ai > 0.97:
-            return True
-    return False
+    return any(is_knockout_index(simps, i) for i in range(len(simps)))
 
 
 def _count_moves(path):

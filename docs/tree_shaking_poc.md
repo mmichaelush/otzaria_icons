@@ -1,5 +1,9 @@
 # Tree-shaking proof of concept
 
+> **Historical POC — captured 2026-07-16; superseded by the current pipeline.**
+> Figures below are a point-in-time snapshot. Live tree-shaking coverage runs in
+> CI (`.github/workflows/ci.yml`) against `test_apps/minimal/`.
+
 Date: 2026-07-16
 
 The app under `test_apps/minimal/` references only:

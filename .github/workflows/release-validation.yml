@@ -2,6 +2,9 @@ name: Release validation
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
 
 permissions:
   contents: read
@@ -11,6 +14,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  package-integrity:
+    name: Package integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - name: Tag matches pubspec version
+        # A release tag must point at the version it claims to publish, matching
+        # the install instructions (`ref: vX.Y.Z` -> `version: X.Y.Z`).
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg="$(grep '^version:' pubspec.yaml | awk '{print $2}')"
+          echo "tag=$tag pubspec=$pkg"
+          if [ "$tag" != "$pkg" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match pubspec version $pkg"
+            exit 1
+          fi
+      - name: Python for generation + coverage checks
+        run: python3 -m pip install --quiet --break-system-packages -r tool/requirements.txt
+      - name: Generated files are current
+        run: dart run tool/generate.dart --check
+      - name: Verify no tofu (every codepoint has a real glyph)
+        run: python3 tool/check_glyph_coverage.py
+      - name: Package score (informational)
+        # pana reports pub.dev-style health/score. Informational because this
+        # package is distributed by git tag (publish_to: none), not pub.dev.
+        continue-on-error: true
+        run: |
+          dart pub global activate pana
+          dart pub global run pana --no-warning .
+
   linux:
     name: Linux release
     runs-on: ubuntu-latest

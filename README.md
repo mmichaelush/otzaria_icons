@@ -206,10 +206,9 @@ docs/                          design, development, testing, and release docs
 
 ## Licensing
 
-All current artwork was created by the project contributor and is released
-under GPL-3.0-only. The package source and artwork are covered by
-The library and all accepted contributions are licensed under
-[GPL-3.0-only](LICENSE).
+The package source and all original artwork are licensed under
+[GPL-3.0-only](LICENSE). All current artwork was created by the project
+contributor, and all accepted contributions are licensed under the same terms.
 
 `THIRD_PARTY_NOTICES.md` is generated from the provenance fields in
 `icon_manifest.yaml`. The current release contains no third-party icon artwork.

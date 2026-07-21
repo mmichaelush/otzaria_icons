@@ -1,5 +1,11 @@
 # Development status
 
+> **Historical record (captured during early bring-up, ~2026-07-16).**
+> This file reflects an early point in the project. The repository now exists,
+> is published with a tagged release (`v0.2.0`), and ships **110**
+> icons. Treat the counts and "release gates" below as historical, not current.
+> For live status see `CHANGELOG.md`, `README.md`, and `pubspec.yaml`.
+
 ## Completed
 
 - Confirmed Otzaria compatibility: Dart `>=3.2.6 <4.0.0`.

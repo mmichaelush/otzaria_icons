@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Expanded the set to **110 icons** (from 62), adding the `alef_*` family,
+  additional book/document/list variants, `calendar`, `person`, `search`,
+  clipboard/task-list and RTL text-list icons. Codepoints were appended after
+  the existing range (through `U+E06D`); no previously shipped codepoint was
+  reassigned.
 - Fixed glyph corruption affecting 34 icons whose independent `<path>` layers
   overlapped or seamed: correct in the browser and catalog, but merged into one
   nonzero-fill glyph the font rendered unintended white holes, hairline seams,
@@ -27,8 +32,11 @@
   timestamp and all generator metadata. Generation now requires Python 3 with
   pinned `skia-pathops` and `fonttools` (`tool/requirements.txt`).
 
-## 0.2.1 - 2026-07-19
-
+- Hardened the generation pipeline: `generate.dart` now runs the
+  `normalize_svg_overlaps.py --check` gate so overlapping/seaming sources can no
+  longer be generated, `validate.dart` enforces append-only contiguous
+  codepoints from `U+E000`, and the manifest's `deprecated` /
+  `match_text_direction` flags now flow into the generated API.
 - Removed the 10 legacy icon names from the former personal repository; their
   artwork now exists under the renamed official icon set.
 - Reallocated the official icon manifest from `U+E000` without deprecated

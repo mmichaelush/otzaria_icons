@@ -1,5 +1,9 @@
 # Generator proof of concept
 
+> **Historical POC — captured 2026-07-16; superseded by the current pipeline.**
+> Figures below (icon counts, font sizes) are a point-in-time snapshot. For the
+> current generation flow see `docs/architecture.md` and `docs/adding_icons.md`.
+
 Date: 2026-07-16
 
 Toolchain:

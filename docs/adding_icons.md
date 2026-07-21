@@ -1,5 +1,36 @@
 # Adding icons
 
+## Quick workflow
+
+One-time setup: install the pinned Python tools used by generation.
+
+```console
+python3 -m pip install -r tool/requirements.txt
+```
+
+Then, for each new icon:
+
+1. Drop a valid `<name>_24_<regular|filled>.svg` into `assets_src/svg/`
+   (exactly `width="24" height="24" viewBox="0 0 24 24"`, filled `<path>`s only).
+2. Clean overlapping/seaming paths: `python3 tool/normalize_svg_overlaps.py`
+   (run `--check` first to see which files need it).
+3. Generate: `dart run tool/generate.dart`. The final glyph-repair step rebuilds
+   every glyph — including interior knockouts — directly from your SVG, so the
+   font always matches the source; no `icon_font_generator` distortion can slip
+   through.
+4. Verify: `dart run tool/generate.dart --check`, `flutter analyze`, `flutter test`.
+5. If any glyph changed, regenerate the visual golden **on Windows** and review
+   it: `flutter test --update-goldens test/icon_gallery_golden_test.dart`.
+6. Update `CHANGELOG.md` and commit the SVG plus every regenerated artifact.
+
+**Important:** always run generation with the pinned tools
+(`pip install -r tool/requirements.txt` first). A different `fonttools`/`skia-pathops`
+version produces a different font byte-for-byte and makes `--check` fail in CI.
+Never hand-edit generated files (the OTF, the `lib/src/generated/` Dart, the
+catalog, `index.html`); edit the source or the generator and regenerate.
+
+The sections below explain each step in detail.
+
 ## 1. Prepare source files
 
 Place all SVGs directly in `assets_src/svg/`. A batch may contain one icon or
@@ -35,10 +66,13 @@ python3 tool/normalize_svg_overlaps.py assets_src/svg/example_24_regular.svg
 The tool `simplify`s each path (honouring its fill-rule) and boolean-unions them
 into a single non-overlapping, consistently-wound path whose filled area is
 exactly what the catalog shows. It is idempotent, and it automatically **skips**
-intended knockout icons (a whole white shape sitting inside a solid body, e.g.
-`document_word_24_filled`), which rely on the font's winding cancellation and
-must keep their separate paths. Requires `pip install -r tool/requirements.txt`.
-CI runs `--check` and fails if any committed source still overlaps.
+intended knockout icons — a whole shape sitting inside a solid body meant to be
+transparent, e.g. the alef in `book_open_alef_24_filled` or the "W" in
+`document_word_24_filled`. Those keep their separate paths so the glyph-repair
+step (section 2) can rebuild them as a boolean difference (body minus the cut),
+which makes the cut transparent regardless of source winding. Requires
+`pip install -r tool/requirements.txt`. CI runs `--check` and fails if any
+committed source still overlaps.
 
 ## 2. Run generation
 
@@ -102,8 +136,17 @@ The `--check` mode generates in a temporary directory, compares all derived
 artifacts, and leaves repository files untouched.
 
 The Windows golden surface grows automatically with the manifest, so every
-registered icon is rendered at all five production sizes. Accept a new golden
-only after checking for blank, clipped, crowded, or unexpectedly filled glyphs.
+registered icon is rendered at all five production sizes. When a glyph changes,
+`flutter test` fails on `test/goldens/icon_gallery.png`. Regenerate it **on
+Windows** (the golden is pinned to one OS to avoid rasterization differences,
+and the test is skipped elsewhere):
+
+```console
+flutter test --update-goldens test/icon_gallery_golden_test.dart
+```
+
+Accept the new golden only after checking for blank, clipped, crowded, or
+unexpectedly filled glyphs, then commit `test/goldens/icon_gallery.png`.
 
 Run the example gallery and inspect every new glyph. Also build
 `test_apps/minimal/` when generation or public `IconData` construction changes,

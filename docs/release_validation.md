@@ -1,5 +1,9 @@
 # Release validation
 
+> **Point-in-time record.** The results below were captured on 2026-07-16 when
+> the font contained 10 glyphs; the package now ships 110. Re-run the steps and
+> record fresh results per release rather than reading these figures as current.
+
 ## Local results — 2026-07-16
 
 | Target | Result | Notes |

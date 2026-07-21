@@ -10,10 +10,18 @@ void main() {
   test('manifest names and source SVG files match', () {
     final manifest =
         loadYaml(File('icon_manifest.yaml').readAsStringSync()) as YamlMap;
-    final manifestNames = {
+    final manifestNameList = [
       for (final item in manifest['icons'] as YamlList)
         (item as YamlMap)['name'] as String,
-    };
+    ];
+    final manifestNames = manifestNameList.toSet();
+    // A duplicate name would silently collapse into the set above and pass the
+    // set-equality check, so assert uniqueness explicitly.
+    expect(
+      manifestNames.length,
+      manifestNameList.length,
+      reason: 'manifest has duplicate icon name(s)',
+    );
     final svgNames = Directory('assets_src/svg')
         .listSync()
         .whereType<File>()
