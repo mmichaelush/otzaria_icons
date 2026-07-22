@@ -721,12 +721,21 @@ String _generateNotices(List<ManifestIcon> icons) {
 }
 
 String _generateSvgCatalog(List<ManifestIcon> icons) {
-  const cardWidth = 480;
-  const cardHeight = 112;
-  const columns = 2;
+  // Compact contact-sheet grid: a small glyph plus its name per tile. Names
+  // are centered and, only when too long to fit, squeezed to the tile width;
+  // every tile also carries a <title> so the full name shows on hover. This
+  // keeps the catalog a few thousand pixels tall instead of one huge column.
+  const columns = 5;
+  const tileW = 184;
+  const tileH = 88;
+  const margin = 20;
+  const headerH = 56;
+  const glyph = 46;
+  const fontSize = 9;
+  const usable = tileW - 12;
   final rows = (icons.length / columns).ceil();
-  const width = cardWidth * columns;
-  final height = 72 + rows * cardHeight + 24;
+  const width = columns * tileW + margin * 2;
+  final height = headerH + rows * tileH + margin;
   final buffer = StringBuffer()
     ..writeln(
       '<svg xmlns="http://www.w3.org/2000/svg" '
@@ -734,13 +743,15 @@ String _generateSvgCatalog(List<ManifestIcon> icons) {
     )
     ..writeln('<rect width="100%" height="100%" fill="#ffffff"/>')
     ..writeln(
-      '<text x="24" y="42" font-family="Arial, sans-serif" font-size="24" '
-      'font-weight="600" fill="#202020">Otzaria Icons</text>',
+      '<text x="$margin" y="36" font-family="Arial, sans-serif" '
+      'font-size="22" font-weight="600" fill="#202020">'
+      'Otzaria Icons (${icons.length})</text>',
     );
   for (var index = 0; index < icons.length; index++) {
     final icon = icons[index];
-    final x = (index % columns) * cardWidth + 16;
-    final y = (index ~/ columns) * cardHeight + 64;
+    final tileX = margin + (index % columns) * tileW;
+    final tileY = headerH + (index ~/ columns) * tileH;
+    final centerX = tileX + tileW ~/ 2;
     final document = File(icon.source).readAsStringSync();
     // Extract the inner markup of the <svg> root. Anchor on the <svg tag and
     // take the first '>' at or after it, so an XML prolog or leading comment
@@ -752,26 +763,19 @@ String _generateSvgCatalog(List<ManifestIcon> icons) {
       document.indexOf('>', svgStart) + 1,
       document.lastIndexOf('</svg>'),
     );
+    final fit = icon.name.length * 0.6 * fontSize > usable
+        ? ' textLength="$usable" lengthAdjust="spacingAndGlyphs"'
+        : '';
     buffer
       ..writeln(
-        '<rect x="$x" y="$y" width="${cardWidth - 16}" '
-        'height="${cardHeight - 8}" rx="12" fill="#f7f7f7" '
-        'stroke="#dedede"/>',
+        '<svg x="${centerX - glyph ~/ 2}" y="${tileY + 6}" '
+        'width="$glyph" height="$glyph" viewBox="0 0 24 24" '
+        'color="#202020">$body</svg>',
       )
       ..writeln(
-        '<svg x="${x + 20}" y="${y + 20}" width="64" height="64" '
-        'viewBox="0 0 24 24" color="#202020">$body</svg>',
-      )
-      ..writeln(
-        '<text x="${x + 104}" y="${y + 49}" '
-        'font-family="Consolas, monospace" font-size="15" '
-        'fill="#202020">${icon.name}</text>',
-      )
-      ..writeln(
-        '<text x="${x + 104}" y="${y + 72}" '
-        'font-family="Arial, sans-serif" font-size="13" '
-        'fill="#666666">U+${icon.codepoint.toRadixString(16).toUpperCase()}'
-        ' · ${icon.variant} · 24 px</text>',
+        '<text x="$centerX" y="${tileY + glyph + 22}" text-anchor="middle" '
+        'font-family="Consolas, monospace" font-size="$fontSize" '
+        'fill="#444444"$fit><title>${icon.name}</title>${icon.name}</text>',
       );
   }
   return '${buffer.toString()}</svg>\n';

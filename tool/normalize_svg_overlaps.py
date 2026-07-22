@@ -20,7 +20,7 @@ safest possible input for the font: no overlaps, no seams, no winding conflicts.
 INTENDED KNOCKOUTS ARE PRESERVED
 --------------------------------
 Some icons deliberately knock a white shape out of a solid body (e.g. the "W" in
-document_word, the bullets in document_bullet_list, the alef in book_open_alef).
+document_word, the bullets in document_bullet_list, the alef in book_alef).
 That white cut only exists in the font, via winding cancellation, and the catalog
 actually hides it. Unioning would fill it in. Such icons are detected (a whole
 path sitting inside another) and SKIPPED, leaving them untouched.

@@ -4,7 +4,7 @@
 `normalize_svg_overlaps.py` (source preparation) and `repair_glyphs.py` (final
 OTF rebuild) both need to decide whether one of an icon's paths is an intended
 interior knockout — a white shape cut out of a solid body that only exists via
-winding cancellation (the "W" in document_word, the alef in book_open_alef, the
+winding cancellation (the "W" in document_word, the alef in book_alef, the
 bullets in document_bullet_list). Previously each script reimplemented that test
 with its own copy of the 0.97 / 1e-6 constants; if they ever drifted, an icon
 could be unioned in one step and cut in the other. This module is the single

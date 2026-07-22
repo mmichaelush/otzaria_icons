@@ -1561,8 +1561,8 @@ icons:
     license: GPL-3.0-only
     upstream_commit: null
   - id: icon-0105
-    name: book_open_alef_24_filled
-    source: assets_src/svg/book_open_alef_24_filled.svg
+    name: book_alef_24_filled
+    source: assets_src/svg/book_alef_24_filled.svg
     codepoint: 0xe068
     variant: filled
     size: 24
@@ -1576,8 +1576,8 @@ icons:
     license: GPL-3.0-only
     upstream_commit: null
   - id: icon-0106
-    name: book_open_alef_24_regular
-    source: assets_src/svg/book_open_alef_24_regular.svg
+    name: book_alef_24_regular
+    source: assets_src/svg/book_alef_24_regular.svg
     codepoint: 0xe069
     variant: regular
     size: 24
@@ -1654,6 +1654,36 @@ icons:
     name: search_in_the_settings_24_regular
     source: assets_src/svg/search_in_the_settings_24_regular.svg
     codepoint: 0xe06e
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0112
+    name: clock_add_24_regular
+    source: assets_src/svg/clock_add_24_regular.svg
+    codepoint: 0xe06f
+    variant: regular
+    size: 24
+    match_text_direction: false
+    deprecated: false
+    upstream_status: missing
+    upstream_equivalent: null
+    origin: custom
+    based_on: null
+    author: Otzaria contributors
+    license: GPL-3.0-only
+    upstream_commit: null
+  - id: icon-0113
+    name: search_in_the_person_24_regular
+    source: assets_src/svg/search_in_the_person_24_regular.svg
+    codepoint: 0xe070
     variant: regular
     size: 24
     match_text_direction: false

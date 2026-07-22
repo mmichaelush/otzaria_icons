@@ -19,6 +19,7 @@
 """
 import os
 import queue
+import re
 import shutil
 import subprocess
 import sys
@@ -61,12 +62,25 @@ ERR = "#e05252"
 MUTED = "#9a948a"
 
 
+def _bad_svgs(text):
+    """Filenames of SVGs that validate.dart reported ERRORs for. Manifest/name
+    errors (e.g. a rename) don't match, so they are correctly left for the
+    human — only auto-fixable SVG-structure failures are returned."""
+    files = []
+    for match in re.finditer(r"ERROR:\s+([^\s:]+\.svg):", text):
+        name = match.group(1)
+        if name not in files:
+            files.append(name)
+    return files
+
+
 class BuildApp:
     def __init__(self, root):
         self.root = root
         self.q = queue.Queue()
         self.running = False
         self._golden_failure = False
+        self._fixable_svgs = []
         root.title("אוצריא אייקונים — כלי בנייה")
         root.configure(bg=BG)
         root.geometry("780x600")
@@ -91,6 +105,9 @@ class BuildApp:
             btns, "🛠  אחרי שינויי קוד בלבד",
             lambda: self.run(CODE_STEPS, "code"))
         self.b_code.pack(side="right", expand=True, fill="x", padx=6)
+        self.b_prepare = self._button(
+            btns, "🔧  תיקון SVG בעייתי", self.run_prepare, accent=False)
+        self.b_prepare.pack(side="right", expand=True, fill="x", padx=6)
         self.b_golden = self._button(
             btns, "🖼  עדכון golden (Windows)",
             lambda: self.run(GOLDEN_STEPS, "golden"), accent=False)
@@ -159,7 +176,7 @@ class BuildApp:
 
     def _set_buttons(self, enabled):
         state = "normal" if enabled else "disabled"
-        for b in (self.b_icons, self.b_code, self.b_golden):
+        for b in (self.b_icons, self.b_code, self.b_golden, self.b_prepare):
             b.configure(state=state)
 
     def on_cancel(self):
@@ -187,6 +204,7 @@ class BuildApp:
             return
         self.running = True
         self._golden_failure = False
+        self._fixable_svgs = []
         self._set_buttons(False)
         self.status.configure(text="מריץ…", fg=FG)
         labels = {"icons": "אחרי הוספת/עריכת אייקונים",
@@ -224,6 +242,10 @@ class BuildApp:
                     joined = "".join(step_out).lower()
                     if "icon_gallery" in joined or "golden" in joined:
                         self.q.put(("gflag", True))
+                if label == VALIDATE[0]:
+                    files = _bad_svgs("".join(step_out))
+                    if files:
+                        self.q.put(("pflag", files))
                 ok = False
                 break
             self.q.put(("ok", "  ✓ הושלם\n"))
@@ -253,6 +275,8 @@ class BuildApp:
                     return
                 elif kind == "gflag":
                     self._golden_failure = True
+                elif kind == "pflag":
+                    self._fixable_svgs = payload
                 elif kind == "line":
                     self._append(payload)
                 else:
@@ -274,8 +298,89 @@ class BuildApp:
         else:
             self._append("\n✗ הבנייה נעצרה בשלב שנכשל (ראה למעלה).\n", "err")
             self.status.configure(text="הבנייה נכשלה.", fg=ERR)
-            if self._golden_failure:
+            if self._fixable_svgs:
+                self._offer_prepare()
+            elif self._golden_failure:
                 self._offer_golden_update()
+
+    def _exec(self, label, cmd):
+        self.q.put(("step", "\n▶ %s\n" % label))
+        self.q.put(("muted", "  $ %s\n" % cmd))
+        try:
+            proc = subprocess.Popen(
+                cmd, shell=True, cwd=ROOT, stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT, text=True, bufsize=1,
+                errors="replace")
+        except Exception as exc:  # noqa: BLE001
+            self.q.put(("err", "  לא ניתן להריץ: %s\n" % exc))
+            return 1, ""
+        lines = []
+        for line in proc.stdout:
+            lines.append(line)
+            self.q.put(("line", line))
+        code = proc.wait()
+        self.q.put(("ok", "  ✓ הושלם\n") if code == 0
+                   else ("err", "  ✗ נכשל (קוד %d)\n" % code))
+        return code, "".join(lines)
+
+    def run_prepare(self):
+        if self.running:
+            return
+        self.running = True
+        self._golden_failure = False
+        self._fixable_svgs = []
+        self._set_buttons(False)
+        self.status.configure(text="מריץ…", fg=FG)
+        self._append("\n%s\nתיקון SVG בעייתי (הכנה)\n%s\n"
+                     % ("=" * 60, "=" * 60), "step")
+        threading.Thread(target=self._prepare_worker, daemon=True).start()
+        self.root.after(60, self._drain)
+
+    def _prepare_worker(self):
+        code, out = self._exec("איתור קבצים בעייתיים (validate)",
+                               "dart run tool/validate.dart")
+        bad = _bad_svgs(out)
+        if not bad:
+            self.q.put(("ok", "\n  ✓ אין קובצי SVG שאפשר לתקן אוטומטית.\n"))
+            if code != 0:
+                self.q.put((
+                    "muted",
+                    "  יש שגיאות אחרות (שם/מניפסט) שדורשות תיקון ידני — "
+                    "לחץ 'העתקת הפלט' ושלח לבדיקה.\n"))
+            self.q.put(("finished", code == 0))
+            return
+        self.q.put(("muted", "\n  קבצים לתיקון: %s\n" % ", ".join(bad)))
+        paths = " ".join('"assets_src/svg/%s"' % f for f in bad)
+        code2, _ = self._exec(
+            "הכנת ה-SVG (prepare_svg_sources)",
+            "dart run tool/prepare_svg_sources.dart %s" % paths)
+        if code2 != 0:
+            self.q.put((
+                "muted",
+                "  אם נכשל בגלל Inkscape חסר — התקן Inkscape והוסף ל-PATH, "
+                "ואז נסה שוב.\n"))
+            self.q.put(("finished", False))
+            return
+        code3, _ = self._exec("אימות חוזר (validate)",
+                              "dart run tool/validate.dart")
+        if code3 == 0:
+            self.q.put((
+                "muted",
+                "\n  ⚠ חשוב: פתח את הקבצים שהוכנו ובדוק אותם ב-16/20/24/32/48px "
+                "— ההמרה יכולה לעוות גאומטריה. אחר כך הרץ "
+                "'אחרי הוספת/עריכת אייקונים'.\n"))
+        self.q.put(("finished", code3 == 0))
+
+    def _offer_prepare(self):
+        names = ", ".join(self._fixable_svgs)
+        if messagebox.askyesno(
+                "תיקון SVG",
+                "נמצאו קובצי SVG לא תקינים:\n%s\n\n"
+                "לנסות להכין אותם אוטומטית (המרת strokes/צורות/transforms "
+                "לנתיבים)?\n\n"
+                "דורש Inkscape מותקן. אחרי ההמרה חובה לבדוק ויזואלית שהאייקון "
+                "לא התעוות." % names):
+            self.run_prepare()
 
     def _offer_golden_update(self):
         # A golden failure after adding/changing an icon is expected. Offer to

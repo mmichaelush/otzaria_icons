@@ -737,15 +737,15 @@ abstract final class OtzariaIcons {
     fontPackage: fontPackage,
   );
 
-  /// `book_open_alef_24_filled.svg`
-  static const IconData book_open_alef_24_filled = IconData(
+  /// `book_alef_24_filled.svg`
+  static const IconData book_alef_24_filled = IconData(
     0xe068,
     fontFamily: fontFamily,
     fontPackage: fontPackage,
   );
 
-  /// `book_open_alef_24_regular.svg`
-  static const IconData book_open_alef_24_regular = IconData(
+  /// `book_alef_24_regular.svg`
+  static const IconData book_alef_24_regular = IconData(
     0xe069,
     fontFamily: fontFamily,
     fontPackage: fontPackage,
@@ -782,6 +782,20 @@ abstract final class OtzariaIcons {
   /// `search_in_the_settings_24_regular.svg`
   static const IconData search_in_the_settings_24_regular = IconData(
     0xe06e,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `clock_add_24_regular.svg`
+  static const IconData clock_add_24_regular = IconData(
+    0xe06f,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `search_in_the_person_24_regular.svg`
+  static const IconData search_in_the_person_24_regular = IconData(
+    0xe070,
     fontFamily: fontFamily,
     fontPackage: fontPackage,
   );
@@ -892,12 +906,14 @@ abstract final class OtzariaIcons {
     'alef_2_24_regular': alef_2_24_regular,
     'alef_3_24_regular': alef_3_24_regular,
     'alef_writing_24_regular': alef_writing_24_regular,
-    'book_open_alef_24_filled': book_open_alef_24_filled,
-    'book_open_alef_24_regular': book_open_alef_24_regular,
+    'book_alef_24_filled': book_alef_24_filled,
+    'book_alef_24_regular': book_alef_24_regular,
     'book_open_tzurat_hadaf_24_filled': book_open_tzurat_hadaf_24_filled,
     'book_open_tzurat_hadaf_24_regular': book_open_tzurat_hadaf_24_regular,
     'search_in_the_text_24_regular': search_in_the_text_24_regular,
     'text_alef_bet_list_24_regular': text_alef_bet_list_24_regular,
     'search_in_the_settings_24_regular': search_in_the_settings_24_regular,
+    'clock_add_24_regular': clock_add_24_regular,
+    'search_in_the_person_24_regular': search_in_the_person_24_regular,
   };
 }

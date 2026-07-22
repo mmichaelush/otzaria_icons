@@ -84,6 +84,24 @@ dialog offering to update the golden right there. It is a deliberate confirm
 (not silent) on purpose — auto-blessing the golden every run would defeat its
 job as the visual safety net, so you still review the image afterwards.
 
+### 🔧 תיקון SVG בעייתי — auto-prepare invalid sources
+
+Runs `dart run tool/validate.dart`, collects the SVG files it rejects for
+*structural* reasons (strokes, `<circle>`/`<rect>`, `<g>`, transforms), runs
+`dart run tool/prepare_svg_sources.dart` on exactly those files to convert them
+to canonical filled 24×24 paths, then re-validates.
+
+- Requires **Inkscape** on `PATH` (that's how preparation works).
+- **Review afterwards.** Conversion can distort geometry, so the helper reminds
+  you to open the prepared icons at 16/20/24/32/48px before continuing.
+- It only touches the files validation flagged — never your already-clean icons.
+- It cannot fix **name/manifest** errors (e.g. a rename, or "has no matching
+  SVG"). Those are human decisions; edit `icon_manifest.yaml` yourself.
+
+You usually don't reach for this button directly either: when the "After adding
+/ editing icons" flow fails at the validate step on fixable SVG errors, the
+helper pops a dialog offering to prepare them right there.
+
 ### ✕ Close
 
 Closes the window without running anything.

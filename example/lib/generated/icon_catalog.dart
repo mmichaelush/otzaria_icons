@@ -172,10 +172,8 @@ const iconCatalog = <GalleryIcon>[
   GalleryIcon('alef_2_24_regular', OtzariaIcons.alef_2_24_regular),
   GalleryIcon('alef_3_24_regular', OtzariaIcons.alef_3_24_regular),
   GalleryIcon('alef_writing_24_regular', OtzariaIcons.alef_writing_24_regular),
-  GalleryIcon(
-      'book_open_alef_24_filled', OtzariaIcons.book_open_alef_24_filled),
-  GalleryIcon(
-      'book_open_alef_24_regular', OtzariaIcons.book_open_alef_24_regular),
+  GalleryIcon('book_alef_24_filled', OtzariaIcons.book_alef_24_filled),
+  GalleryIcon('book_alef_24_regular', OtzariaIcons.book_alef_24_regular),
   GalleryIcon('book_open_tzurat_hadaf_24_filled',
       OtzariaIcons.book_open_tzurat_hadaf_24_filled),
   GalleryIcon('book_open_tzurat_hadaf_24_regular',
@@ -186,4 +184,7 @@ const iconCatalog = <GalleryIcon>[
       OtzariaIcons.text_alef_bet_list_24_regular),
   GalleryIcon('search_in_the_settings_24_regular',
       OtzariaIcons.search_in_the_settings_24_regular),
+  GalleryIcon('clock_add_24_regular', OtzariaIcons.clock_add_24_regular),
+  GalleryIcon('search_in_the_person_24_regular',
+      OtzariaIcons.search_in_the_person_24_regular),
 ];

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Renamed `book_open_alef_24_{filled,regular}` to `book_alef_24_{filled,regular}`
+  (same codepoints `U+E068`/`U+E069`; no backward-compatible aliases).
+- Added `clock_add_24_regular` and `search_in_the_person_24_regular`.
 - Expanded the set to **110 icons** (from 62), adding the `alef_*` family,
   additional book/document/list variants, `calendar`, `person`, `search`,
   clipboard/task-list and RTL text-list icons. Codepoints were appended after
@@ -15,7 +18,7 @@
   each icon's paths into one clean, non-overlapping, consistently-wound outline
   identical to the catalog, and normalized all 107 affected/at-risk sources.
 - Preserved the three intended interior knockouts (`document_word_24_filled`,
-  `document_bullet_list_24_filled`, `book_open_alef_24_filled`), which the tool
+  `document_bullet_list_24_filled`, `book_alef_24_filled`), which the tool
   detects and skips.
 - Added a CI check (`normalize_svg_overlaps.py --check`) that fails when a
   committed source still contains overlapping or seaming paths.
@@ -25,9 +28,9 @@
   (a ~4-unit horizontal shift on `book_open_large_search_24_filled`, contour
   damage on `stander_24_filled` and `search_in_the_text_24_regular`) even from
   clean sources; this makes every glyph match the catalog exactly. Interior
-  knockouts (`document_word`, `document_bullet_list`, `book_open_alef`) are
+  knockouts (`document_word`, `document_bullet_list`, `book_alef`) are
   rebuilt as a boolean difference (body minus the cut) so the cut is transparent
-  regardless of source winding — this fixed the alef in `book_open_alef_24_filled`,
+  regardless of source winding — this fixed the alef in `book_alef_24_filled`,
   which had rendered solid black. Deterministic; preserves the fixed font
   timestamp and all generator metadata. Generation now requires Python 3 with
   pinned `skia-pathops` and `fonttools` (`tool/requirements.txt`).

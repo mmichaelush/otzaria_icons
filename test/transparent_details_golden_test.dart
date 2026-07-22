@@ -38,7 +38,7 @@ void main() {
     'document_word_24_filled': OtzariaIcons.document_word_24_filled,
     'document_bullet_list_24_filled':
         OtzariaIcons.document_bullet_list_24_filled,
-    'book_open_alef_24_filled': OtzariaIcons.book_open_alef_24_filled,
+    'book_alef_24_filled': OtzariaIcons.book_alef_24_filled,
   };
 
   testWidgets('transparent-detail icons load and paint without error', (

@@ -72,7 +72,7 @@ The tool `simplify`s each path (honouring its fill-rule) and boolean-unions them
 into a single non-overlapping, consistently-wound path whose filled area is
 exactly what the catalog shows. It is idempotent, and it automatically **skips**
 intended knockout icons — a whole shape sitting inside a solid body meant to be
-transparent, e.g. the alef in `book_open_alef_24_filled` or the "W" in
+transparent, e.g. the alef in `book_alef_24_filled` or the "W" in
 `document_word_24_filled`. Those keep their separate paths so the glyph-repair
 step (section 2) can rebuild them as a boolean difference (body minus the cut),
 which makes the cut transparent regardless of source winding. Requires

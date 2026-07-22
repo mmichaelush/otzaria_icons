@@ -15,10 +15,10 @@ onto the em (y-flipped) with no re-fitting, so the font geometry is byte-for-byt
 what the source (and docs/icon_catalog.svg) show. All font structure, names,
 codepoints, advance widths, and metadata produced by the generator are preserved.
 
-Interior-knockout icons (document_word, document_bullet_list, book_open_alef) are
+Interior-knockout icons (document_word, document_bullet_list, book_alef) are
 rebuilt as `body` minus the knocked-out shapes via a boolean difference, so the
 cut is transparent regardless of the source winding. This is what fixed the alef
-in book_open_alef_24_filled, which the generator had filled solid black.
+in book_alef_24_filled, which the generator had filled solid black.
 
 Deterministic: identical sources produce an identical charstring, and the OTF
 head timestamp set by the generator is preserved, so `generate.dart --check`
@@ -60,7 +60,7 @@ def knockout_outline(paths):
     winding; otherwise return None (the glyph is drawn straight from its paths).
 
     A path whose filled area sits inside the union of the other paths is treated
-    as a knockout (the alef in book_open_alef_24_filled, the "W" in
+    as a knockout (the alef in book_alef_24_filled, the "W" in
     document_word_24_filled, the bullets in document_bullet_list_24_filled). The
     threshold lives in glyph_geometry, shared with normalize_svg_overlaps.py.
     """
