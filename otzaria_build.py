@@ -52,6 +52,9 @@ GOLDEN = ("עדכון golden של הגלריה (Windows)",
 ICONS_STEPS = [PUB_GET, PIP, VALIDATE, NORMALIZE, GENERATE, CHECK,
                FORMAT, ANALYZE, TEST]
 CODE_STEPS = [PUB_GET, PIP, GENERATE, CHECK, FORMAT, ANALYZE, TEST]
+# Delete/rename touches the manifest + existing (already-normalized) sources, so
+# it skips normalization but must regenerate, re-check drift, and re-test.
+RENAME_STEPS = [PUB_GET, PIP, VALIDATE, GENERATE, CHECK, FORMAT, ANALYZE, TEST]
 GOLDEN_STEPS = [GOLDEN]
 
 BG = "#1e1e1e"
@@ -95,21 +98,28 @@ class BuildApp:
                       "והפלט יוצג למטה.",
                  bg=BG, fg=MUTED, font=("Segoe UI", 10)).pack(anchor="e")
 
-        btns = tk.Frame(root, bg=BG)
-        btns.pack(fill="x", padx=18, pady=6)
+        row1 = tk.Frame(root, bg=BG)
+        row1.pack(fill="x", padx=18, pady=(6, 3))
         self.b_icons = self._button(
-            btns, "🎨  אחרי הוספת / עריכת אייקונים",
+            row1, "🎨  אחרי הוספת / עריכת אייקונים",
             lambda: self.run(ICONS_STEPS, "icons"))
         self.b_icons.pack(side="right", expand=True, fill="x", padx=(6, 0))
         self.b_code = self._button(
-            btns, "🛠  אחרי שינויי קוד בלבד",
+            row1, "🛠  אחרי שינויי קוד בלבד",
             lambda: self.run(CODE_STEPS, "code"))
         self.b_code.pack(side="right", expand=True, fill="x", padx=6)
+        self.b_rename = self._button(
+            row1, "🔁  אחרי מחיקה / שינוי שם",
+            lambda: self.run(RENAME_STEPS, "rename"))
+        self.b_rename.pack(side="right", expand=True, fill="x", padx=(0, 6))
+
+        row2 = tk.Frame(root, bg=BG)
+        row2.pack(fill="x", padx=18, pady=(0, 6))
         self.b_prepare = self._button(
-            btns, "🔧  תיקון SVG בעייתי", self.run_prepare, accent=False)
-        self.b_prepare.pack(side="right", expand=True, fill="x", padx=6)
+            row2, "🔧  תיקון SVG בעייתי", self.run_prepare, accent=False)
+        self.b_prepare.pack(side="right", expand=True, fill="x", padx=(6, 0))
         self.b_golden = self._button(
-            btns, "🖼  עדכון golden (Windows)",
+            row2, "🖼  עדכון golden (Windows)",
             lambda: self.run(GOLDEN_STEPS, "golden"), accent=False)
         self.b_golden.pack(side="right", expand=True, fill="x", padx=(0, 6))
 
@@ -176,7 +186,8 @@ class BuildApp:
 
     def _set_buttons(self, enabled):
         state = "normal" if enabled else "disabled"
-        for b in (self.b_icons, self.b_code, self.b_golden, self.b_prepare):
+        for b in (self.b_icons, self.b_code, self.b_rename,
+                  self.b_golden, self.b_prepare):
             b.configure(state=state)
 
     def on_cancel(self):
@@ -262,6 +273,13 @@ class BuildApp:
                 "    (או הרץ: flutter test --update-goldens "
                 "test/icon_gallery_golden_test.dart).\n"
                 "    אם זו שגיאה אחרת — לחץ 'העתקת הפלט' ושלח אותה לבדיקה.\n"))
+        elif label == VALIDATE[0]:
+            self.q.put((
+                "muted",
+                "    שגיאות מבנה SVG — תוצע חלונית לתיקון אוטומטי.\n"
+                "    שגיאות שם/codepoint/מניפסט (למשל אחרי מחיקה) — ערוך ידנית "
+                "את icon_manifest.yaml: הסר את הרשומה ושמור codepoints רציפים "
+                "(append-only), או סמן deprecated במקום למחוק.\n"))
         elif "נרמול" in label or "overlap" in label.lower():
             self.q.put(("muted",
                         "    בדוק ויזואלית את קבצי ה-SVG שנורמלו לפני commit.\n"))

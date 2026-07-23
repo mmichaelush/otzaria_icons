@@ -135,4 +135,7 @@ const generatedIconExpectations = <String, IconData>{
   'clock_add_24_regular': OtzariaIcons.clock_add_24_regular,
   'search_in_the_person_24_regular':
       OtzariaIcons.search_in_the_person_24_regular,
+  'book_information_24_filled': OtzariaIcons.book_information_24_filled,
+  'book_information_24_regular': OtzariaIcons.book_information_24_regular,
+  'yoma_deilula_24_regular': OtzariaIcons.yoma_deilula_24_regular,
 };

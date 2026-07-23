@@ -800,6 +800,27 @@ abstract final class OtzariaIcons {
     fontPackage: fontPackage,
   );
 
+  /// `book_information_24_filled.svg`
+  static const IconData book_information_24_filled = IconData(
+    0xe071,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `book_information_24_regular.svg`
+  static const IconData book_information_24_regular = IconData(
+    0xe072,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
+  /// `yoma_deilula_24_regular.svg`
+  static const IconData yoma_deilula_24_regular = IconData(
+    0xe073,
+    fontFamily: fontFamily,
+    fontPackage: fontPackage,
+  );
+
   /// Every icon in this library, keyed by its name.
   static const Map<String, IconData> allIcons = <String, IconData>{
     'book_24_filled': book_24_filled,
@@ -915,5 +936,8 @@ abstract final class OtzariaIcons {
     'search_in_the_settings_24_regular': search_in_the_settings_24_regular,
     'clock_add_24_regular': clock_add_24_regular,
     'search_in_the_person_24_regular': search_in_the_person_24_regular,
+    'book_information_24_filled': book_information_24_filled,
+    'book_information_24_regular': book_information_24_regular,
+    'yoma_deilula_24_regular': yoma_deilula_24_regular,
   };
 }

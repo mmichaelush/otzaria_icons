@@ -84,6 +84,18 @@ dialog offering to update the golden right there. It is a deliberate confirm
 (not silent) on purpose — auto-blessing the golden every run would defeat its
 job as the visual safety net, so you still review the image afterwards.
 
+### 🔁 אחרי מחיקה / שינוי שם — after a delete or rename
+
+Use this after you renamed or deleted an icon by editing `icon_manifest.yaml`
+(and the SVG file). It regenerates, checks drift, formats, analyzes, and tests —
+skipping SVG normalization, since existing sources are already normalized. A
+name/codepoint change usually also grows or shifts the gallery golden, so expect
+the golden dialog at the end.
+
+Renames and deletes themselves are manual manifest edits (they can't be
+auto-fixed — the new name, or keeping codepoints contiguous/append-only after a
+delete, is a human decision).
+
 ### 🔧 תיקון SVG בעייתי — auto-prepare invalid sources
 
 Runs `dart run tool/validate.dart`, collects the SVG files it rejects for

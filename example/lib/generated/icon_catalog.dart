@@ -187,4 +187,9 @@ const iconCatalog = <GalleryIcon>[
   GalleryIcon('clock_add_24_regular', OtzariaIcons.clock_add_24_regular),
   GalleryIcon('search_in_the_person_24_regular',
       OtzariaIcons.search_in_the_person_24_regular),
+  GalleryIcon(
+      'book_information_24_filled', OtzariaIcons.book_information_24_filled),
+  GalleryIcon(
+      'book_information_24_regular', OtzariaIcons.book_information_24_regular),
+  GalleryIcon('yoma_deilula_24_regular', OtzariaIcons.yoma_deilula_24_regular),
 ];
